@@ -1,19 +1,9 @@
 <template>
 <v-app-bar :elevation="2">
     <v-row align="center" justify="space-between" class="w-100">
-        <span v-if="mainPageFlag">
-            <v-col cols="auto" class="ml-12">
-                <v-app-bar-title class="text-h5 font-weight-bold">Round {{ room.roundNum }}</v-app-bar-title>
-            </v-col>
-        </span>
-        <span v-if="!mainPageFlag">
-            <v-col cols="auto" class="ml-6 d-flex align-center justify-center">
-                <router-link to="/game" style="text-decoration: none; color: inherit;" class="mr-8">
-                    <v-icon icon="mdi-arrow-left-thin" size="50" color="black"></v-icon>
-                </router-link>
-                <v-app-bar-title class="text-h5 font-weight-bold">Round {{ room.roundNum }}</v-app-bar-title>
-            </v-col>
-        </span>
+        <v-col cols="auto" class="ml-12">
+            <v-app-bar-title class="text-h5 font-weight-bold">Round {{ room.roundNum }}</v-app-bar-title>
+        </v-col>
         <v-col cols="auto">
             <v-app-bar-title class="text-h4 font-weight-bold">Climate Game</v-app-bar-title>
         </v-col>
@@ -151,7 +141,7 @@ import { mapState, mapMutations } from 'vuex';
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: "Header",
-    props: ["room", "user", "mainPageFlag"],
+    props: ["room", "user"],
     data() {
         return {
             tradeDrawer: false,

@@ -1,5 +1,5 @@
 <template>
-    <Header :room="room" :user="user" :mainPageFlag="mainPageFlag" />
+    <Header :room="room" :user="user" />
     <v-main class="mt-3">
         <v-container class="mx-0" fluid>
             <Mission :user="user"/>
@@ -120,6 +120,7 @@
             </v-row>
         </v-container>
     </v-main>
+    <Footer />
 </template>
 
 <script>
@@ -131,6 +132,7 @@ import ResourceCard from '../components/ResourceCard.vue'
 import PPCard from '../components/PPCard.vue'
 import TechnologyCard from '../components/TechnologyCard.vue'
 import AskDialog from '../components/AskDialog.vue'
+import Footer from "../components/Footer.vue"
 
 export default {
      // eslint-disable-next-line vue/multi-word-component-names
@@ -142,13 +144,13 @@ export default {
         ResourceCard,
         PPCard,
         TechnologyCard,
-        AskDialog
+        AskDialog,
+        Footer
     },  
     data() {
         return {
             cardRadio: "1",
             nuclearImage: require("../assets/nuclear-plant.png"),
-            mainPageFlag: false,
             tab: null,
             dialog: false
         }

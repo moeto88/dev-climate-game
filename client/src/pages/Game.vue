@@ -1,6 +1,6 @@
 <template>
 <v-layout>
-    <Header :room="room" :user="user" :mainPageFlag="mainPageFlag" />
+    <Header :room="room" :user="user" />
     <v-main class="mt-3">
         <v-container class="mx-0" fluid>
             <Mission :user="user"/>
@@ -50,29 +50,6 @@
                             </v-card>
                         </v-col>
                     </v-row>
-                    <v-row class="mt-14">
-                        <v-col cols="12">
-                            <v-row>
-                                <v-col class="d-flex align-center justify-center">
-                                    <BuildPP />
-
-                                    <router-link to="/fuel-pp" style="text-decoration: none; color: inherit;" class="px-2">
-                                        <v-btn size="small" color="primary" height="60" class="text-h6 font-weight-bold">
-                                            Fuel Power Plants
-                                            <v-icon icon="mdi-fuel" size="40" color="white"></v-icon>
-                                        </v-btn>
-                                    </router-link>
-
-                                    <router-link to="/trade" style="text-decoration: none; color: inherit;" class="px-2">
-                                        <v-btn size="small" color="primary" height="60" class="text-h6 font-weight-bold">
-                                            Trade
-                                            <v-icon class="ml-1" icon="mdi-handshake-outline" size="40" color="white"></v-icon>
-                                        </v-btn>
-                                    </router-link>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
                 </v-col>
                 <v-col cols="12" md="4">
                     <v-row class="justify-center">
@@ -85,17 +62,20 @@
                             </v-radio-group>
                         </v-col>
                     </v-row>
-                    <v-row class="justify-center mb-2">
-                        <v-col cols="auto" class="pt-0 pb-4">
-                            <span v-if="selectedUser">
-                                <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2"> - Country {{ user.country }}</span>
-                            </span>
+                    <v-row class="justify-center" v-if="selectedUser">
+                        <v-col cols="auto" class="pt-0">
+                            <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2"> - Country {{ user.country }}</span>
                         </v-col>
                     </v-row>
-                    <v-row class="justify-center">
+                    <v-row align="center" justify="center" v-if="selectedUser && !youFlag">
+                        <v-col cols="auto" class="pt-0">
+                            <div class="text-h6 font-weight-bold">Energy Target: {{ selectedUser.resourceSet.energyTarget }}</div>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center" class="mt-6">
                         <div v-if="cardRadio=='1'">
                             <v-col cols="12" class="pt-0">
-                                <ParamCard :user="selectedUser" v-if="selectedUser" />
+                                <ParamCard :user="selectedUser" :room="room" v-if="selectedUser" />
                                 <v-card class="d-flex align-center justify-center position-relative mx-auto" max-width="300" height="400" :elevation="5" v-if="!selectedUser">
                                     <v-card-text class="text-center font-weight-bold text-body-1">
                                         Select a country on the map.
@@ -139,6 +119,7 @@
         </v-container>
     </v-main>
 </v-layout>
+<Footer />
 </template>
 
 <script>
@@ -148,9 +129,9 @@ import Mission from "../components/Mission.vue"
 import Header from "../components/Header.vue"
 import ParamCard from "../components/ParamCard.vue"
 import PPCard from '../components/PPCard.vue'
-import BuildPP from "../components/BuildPP.vue"
 import ResourceCard from "../components/ResourceCard.vue"
 import TechnologyCard from "../components/TechnologyCard.vue"
+import Footer from "../components/Footer.vue"
 
 
 export default {
@@ -161,16 +142,15 @@ export default {
         Mission,
         ParamCard,
         PPCard,
-        BuildPP,
         ResourceCard,
-        TechnologyCard
+        TechnologyCard,
+        Footer
     },  
     data() {
         return {
             worldImage: require("../assets/world-map.png"),
             selectedUser: null,
             youFlag: true,
-            mainPageFlag: true,
             cardRadio: "1",
             initialRendering: true
         }

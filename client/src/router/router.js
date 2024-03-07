@@ -14,14 +14,16 @@ const router = createRouter({
         {
             path: '/game',
             component: Game,
-            name: "game"
+            name: "main"
         },
         {
             path: '/fuel-pp',
+            name: "fuel",
             component: FuelPP
         },
         {
             path: "/trade",
+            name: "trade",
             component: Trade
         }
     ]

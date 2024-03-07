@@ -664,7 +664,7 @@ export default {
                 { 
                     name: 'Country A',  
                     budget: 400,
-                    fine: 80,
+                    fine: 100,
                     resourceSet: {
                         resource: {
                             fossilFuel: 800,
@@ -680,7 +680,7 @@ export default {
                             renewable: true,
                             nuclear: false
                         },
-                        energyTarget: 80,
+                        energyTarget: 100,
                         historicalEmission: "high",
                     },
                 },

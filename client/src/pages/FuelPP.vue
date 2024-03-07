@@ -1,5 +1,5 @@
 <template>
-    <Header :room="room" :user="user" :mainPageFlag="mainPageFlag" />
+    <Header :room="room" :user="user" />
     <v-main class="mt-3">
         <v-container class="mx-0" fluid>
             <Mission :user="user"/>
@@ -15,6 +15,8 @@
                             <v-radio-group v-model="cardRadio" inline>
                                 <v-radio style="color: black" label="Main" value="1"></v-radio>
                                 <v-radio style="color: black" label="Resource" value="2"></v-radio>
+                                <v-radio style="color: black" label="Power Plants" value="3"></v-radio>
+                                <v-radio style="color: black" label="Technology" value="4"></v-radio>
                             </v-radio-group>
                         </v-col>
                     </v-row>
@@ -29,17 +31,32 @@
                                 <ResourceCard :user="user" :room="room" />
                             </v-col>
                         </div>
+                        <div v-if="cardRadio=='3'">
+                            <v-col cols="auto">
+                                <PPCard :user="user" :room="room" />
+                            </v-col>
+                        </div>
+                        <div v-if="cardRadio=='4'">
+                            <v-col cols="auto">
+                                <TechnologyCard :user="user" :room="room" />
+                            </v-col>
+                        </div>
+                    </v-row>
+                    <v-row justify="center" align="center" class="mt-10">
+                        <v-col cols="auto">
+                            <BuildPP />
+                        </v-col>
                     </v-row>
                 </v-col>
                 <v-col cols="8" class="mt-8 px-0">
-                    <v-card class="pa-8" width="1100" color="lime-lighten-5">
+                    <v-card class="pa-8 pt-3" width="1100" color="lime-lighten-5">
                         <v-row justify="center">
-                            <v-col cols="12" class="d-flex align-center justify-center">
+                            <v-col cols="12" class="d-flex align-center justify-center pb-0">
                                 <v-card-title class="text-h4 font-weight-bold">Fuel Power Plants</v-card-title>
                                 <v-card-title class="text-h5 font-weight-bold">Weather Condition: {{ weather }}</v-card-title>
                             </v-col>
                         </v-row>
-                        <v-card :elevation="4" class="mt-5 py-8 px-13">
+                        <v-card :elevation="4" class="mt-5 py-5 px-13">
                             <v-row>
                                 <v-col cols="4">
                                     <v-row align="center" justify="center">
@@ -99,7 +116,7 @@
                             </v-row>
                         </v-card>
 
-                        <v-card :elevation="4" class="mt-5 py-8 px-13">
+                        <v-card :elevation="4" class="mt-5 py-5 px-13">
                             <v-row>
                                 <v-col cols="4">
                                     <v-row align="center" justify="center">
@@ -155,7 +172,7 @@
                             </v-row>
                         </v-card>
 
-                        <v-card :elevation="4" class="mt-5 py-8 px-13">
+                        <v-card :elevation="4" class="mt-5 py-5 px-13">
                             <v-row>
                                 <v-col cols="4">
                                     <v-row align="center" justify="center">
@@ -219,6 +236,7 @@
             </v-row>
         </v-container>
     </v-main>
+    <Footer />
 </template>
 
 <script>
@@ -227,6 +245,10 @@ import Mission from "../components/Mission.vue"
 import Header from "../components/Header.vue"
 import ParamCard from '../components/ParamCard.vue'
 import ResourceCard from '../components/ResourceCard.vue'
+import BuildPP from '../components/BuildPP.vue'
+import PPCard from '../components/PPCard.vue'
+import TechnologyCard from '../components/TechnologyCard.vue'
+import Footer from "../components/Footer.vue"
 
 export default {
     name: "FuelPP",
@@ -234,13 +256,16 @@ export default {
         Header,
         Mission,
         ParamCard,
-        ResourceCard
+        ResourceCard,
+        PPCard,
+        TechnologyCard,
+        BuildPP,
+        Footer
     },  
     data() {
         return {
             cardRadio: "1",
             nuclearImage: require("../assets/nuclear-plant.png"),
-            mainPageFlag: false
         }
     },
     methods: {
