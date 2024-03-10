@@ -214,9 +214,9 @@
                                                         <v-expansion-panel>
                                                             <v-expansion-panel-title>Game Modes</v-expansion-panel-title>
                                                             <v-expansion-panel-text>
-                                                                <v-row justify="center" align="center">
+                                                                <v-row justify="center" align="center" class="py-3">
                                                                     <v-col cols="auto">
-                                                                        <div class="text-subtitle-1">The maximum number of rounds: </div>
+                                                                        <div class="text-h6">The maximum number of rounds: </div>
                                                                     </v-col>
                                                                     <v-col cols="auto" class="px-0">
                                                                         <v-text-field
@@ -290,6 +290,24 @@
                                                                         <v-col cols="auto">
                                                                             <div class="text-subtitle-1">if a country moderately
                                                                                 contributes to a historical emission</div>
+                                                                        </v-col>
+                                                                    </v-row>
+                                                                </v-card>
+                                                                <v-card class="py-3 px-4 my-4" :elevation="0" border>
+                                                                    <v-row>
+                                                                        <v-col cols="auto">
+                                                                            <v-switch class="font-weight-bold" style="color: black"
+                                                                                base-color="red" hide-details="true"
+                                                                                v-model="setting_naturalDisaster" color="primary"
+                                                                                label="Natural Disaster"></v-switch>
+                                                                        </v-col>
+                                                                    </v-row>
+                                                                    <v-row justify="center" align="center"
+                                                                        v-if="setting_naturalDisaster">
+                                                                        <v-col cols="auto" class="pt-0">
+                                                                            <p class="text-subtitle-1">If the total CO2 emissions from all the countries up to the end of round 3 exceed 300,</p>
+                                                                            <p class="text-subtitle-1">a natural disaster will occur in round 4.</p>
+                                                                            <p class="text-subtitle-1">Players must pay €50 to address it.</p>
                                                                         </v-col>
                                                                     </v-row>
                                                                 </v-card>
@@ -707,6 +725,7 @@ export default {
             setting_historicalEmission: true,
             fine_high_historicalEmission: 40,
             fine_middle_historicalEmission: 20,
+            setting_naturalDisaster: false,
             countryList: [
                 { 
                     name: 'Country A',  
@@ -757,7 +776,7 @@ export default {
                 { 
                     name: 'Country C',  
                     budget: 40,
-                    fine: 30,
+                    fine: 20,
                     resourceSet: {
                         resource: {
                             fossilFuel: 2000,
@@ -780,7 +799,7 @@ export default {
                 { 
                     name: 'Country D',  
                     budget: 30,
-                    fine: 30,
+                    fine: 20,
                     resourceSet: {
                         resource: {
                             fossilFuel: 1000,
@@ -907,7 +926,7 @@ export default {
             }
 
             if(createRoomFlag) {
-                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo, this.maxRoundNum)
+                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo, this.maxRoundNum, this.setting_naturalDisaster)
             }
             else {
                 this.setting_valid = false

@@ -160,6 +160,27 @@
     </v-card>
 </v-dialog>
 
+<v-dialog v-model="naturalDisasterFlag" width="1200">
+    <v-card class="pa-10">
+        <v-row justify="center" align="center">
+            <v-col cols="auto">
+                <div class="text-h5" style="color: #F44336">
+                    <v-icon color="red">mdi-alert-outline</v-icon>
+                    Natural Disaster has occurred
+                </div>
+            </v-col>
+        </v-row>
+        <v-row justify="center" align="center">
+            <v-col cols="auto" class="pt-0">
+                <ul>
+                    <li class="text-h6" style="color: red">You paid €{{ naturalDisasterFine }} to address natural disaster</li>
+                    <li class="text-h6" style="color: red">All the countries need to be careful of their CO2 emissions.</li>
+                </ul>
+            </v-col>
+        </v-row>
+    </v-card>
+</v-dialog>
+
 </template>
 
 
@@ -186,7 +207,9 @@ export default {
             energyTargetFine: 0, 
             co2EmissionFine: 0, 
             historicalEmissionFine: 0, 
-            historicalEmissionEarning: 0
+            historicalEmissionEarning: 0,
+            naturalDisasterFine: 0,
+            naturalDisasterFlag: false,
         }
     },
     computed: {
@@ -222,6 +245,11 @@ export default {
 
         this.socket.on("endGame_notHost", () => {
             router.push("/end-game")
+        })
+
+        this.socket.on("show_naturalDisaster", (payment) => {
+            this.naturalDisasterFlag = true
+            this.naturalDisasterFine = payment
         })
     },
     methods: {
