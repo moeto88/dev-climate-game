@@ -195,7 +195,6 @@ export default {
             this.updateUser(user)
         })
         this.socket.on("request", (request) => {
-            console.log(request)
             this.updateTradeRequest(request)
         })
         this.socket.on("history", (history) => {

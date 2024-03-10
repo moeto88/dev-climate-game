@@ -39,7 +39,7 @@
                                 </v-row>
                                 <v-row>
                                     <v-col class="text-right pt-0">
-                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem" model="user.resourceSet.currentEnergyOutput">{{ user.resourceSet.resource.uranium }} kt</v-card-text>
+                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.resource.uranium }} kt</v-card-text>
                                     </v-col>
                                 </v-row>
                             </v-card>

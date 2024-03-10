@@ -64,7 +64,7 @@
                     </v-row>
                     <v-row class="justify-center" v-if="selectedUser">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2"> - Country {{ user.country }}</span>
+                            <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2"> - Country {{ selectedUser.country }}</span>
                         </v-col>
                     </v-row>
                     <v-row align="center" justify="center" v-if="selectedUser && !youFlag">
@@ -174,18 +174,6 @@ export default {
             this.updateUser(user)
             this.selectedUser = user
         })
-        this.socket.on("setUsername", (room) => {
-            this.updateRoom(room)
-            const user_A = this.room.users.find(user => user.country === "A");
-            const username_A = user_A ? user_A.name : ""
-            const user_B = this.room.users.find(user => user.country === "B");
-            const username_B = user_B ? user_B.name : ""
-            const user_C = this.room.users.find(user => user.country === "C");
-            const username_C = user_C ? user_C.name : ""
-            const user_D = this.room.users.find(user => user.country === "D");
-            const username_D = user_D ? user_D.name : ""
-            this.updateUsername(username_A, username_B, username_C, username_D)
-        })
         this.socket.on("request", (request) => {
             console.log(request)
             this.updateTradeRequest(request)
@@ -195,7 +183,7 @@ export default {
         })
     },
     methods: {
-        ...mapMutations(["setUser", "setRoom", "setWeather", "setUsername", "setTradeRequest", "setHistory"]),
+        ...mapMutations(["setUser", "setRoom", "setWeather", "setTradeRequest", "setHistory"]),
         updateUser(user) {
             this.setUser(user)
         },
@@ -204,9 +192,6 @@ export default {
         },
         updateWeather(room) {
             this.setWeather(room.weather)
-        },
-        updateUsername(username_A, username_B, username_C, username_D) {
-            this.setUsername({ username_A, username_B, username_C, username_D })
         },
         updateTradeRequest(request) {
             this.setTradeRequest(request)
@@ -246,7 +231,6 @@ export default {
         this.socket.off("initGame");
         this.socket.off("updateAll");
         this.socket.off("updateUser");
-        this.socket.off("setUsername");
         this.socket.off("request");
         this.socket.off("history");
     },

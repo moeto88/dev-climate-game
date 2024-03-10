@@ -10,8 +10,11 @@
         <v-col cols="auto" class="mr-5">
             <v-row align="center" justify="center">
                 <span v-if="user.host">
-                    <v-col cols="auto">
+                    <v-col cols="auto" v-if="room.roundNum < room.maxRoundNum">
                         <v-btn color="primary" variant="outlined" @click="dialog_caution=true" class="font-weight-bold text-h6">Next Round</v-btn>
+                    </v-col>
+                    <v-col cols="auto" v-else>
+                        <v-btn color="primary" variant="outlined" @click="dialog_caution_end_game=true" class="font-weight-bold text-h6">End Game</v-btn>
                     </v-col>
                 </span>
                 <v-col cols="auto">
@@ -120,6 +123,29 @@
     </v-card>
 </v-dialog>
 
+<v-dialog v-model="dialog_caution_end_game">
+    <v-card class="pa-10">
+        <v-row justify="center" align="center">
+            <v-col cols="auto">
+                <div class="text-h3" style="color: red">Caution!</div>
+            </v-col>
+        </v-row>
+        <v-row justify="center" align="center">
+            <v-col cols="auto">
+                <div class="text-h5">Is everyone happy to end the game?</div>
+            </v-col>
+        </v-row>
+        <v-row justify="center" align="center">
+            <v-col cols="auto">
+                <v-btn color="primary" @click="endGame">Yes</v-btn>
+            </v-col>
+            <v-col cols="auto">
+                <v-btn color="error" @click="dialog_caution_end_game=false">No</v-btn>
+            </v-col>
+        </v-row>
+    </v-card>
+</v-dialog>
+
 <v-dialog v-model="dialog_nextRoundInfo" width="1200">
     <v-card class="pa-10">
         <div class="text-h4 mb-4">Now, Round {{ roundNum }}</div>
@@ -133,11 +159,13 @@
         </ul>
     </v-card>
 </v-dialog>
+
 </template>
 
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import router from  "../router/router.js"
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: "Header",
@@ -151,6 +179,7 @@ export default {
             message2: "",
             dialog_caution: false,
             dialog_nextRoundInfo: false,
+            dialog_caution_end_game: false,
             roundNum: 0,
             budget: 0,
             fine: 0,
@@ -190,6 +219,10 @@ export default {
             this.historicalEmissionEarning = historicalEmissionEarning
             this.dialog_nextRoundInfo = true
         })
+
+        this.socket.on("endGame_notHost", () => {
+            router.push("/end-game")
+        })
     },
     methods: {
         ...mapMutations(["deleteTradeRequest", "updateHistoryListOpened", "setHistoryReadIndex"]),
@@ -216,6 +249,11 @@ export default {
 
         setHistoryReadIndex_method(index) {
             this.setHistoryReadIndex(index)
+        },
+
+        endGame() {
+            this.socket.emit("endGame", this.room.id)
+            router.push("/end-game")
         }
     },
     watch: {

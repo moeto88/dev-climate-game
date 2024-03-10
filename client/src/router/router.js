@@ -3,6 +3,7 @@ import Room from "../pages/Room.vue"
 import Game from "../pages/Game.vue"
 import FuelPP from "../pages/FuelPP.vue"
 import Trade from "../pages/Trade.vue"
+import EndGame from "../pages/EndGame.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -25,6 +26,11 @@ const router = createRouter({
             path: "/trade",
             name: "trade",
             component: Trade
+        },
+        {
+            path: "/end-game",
+            name: "endGame",
+            component: EndGame
         }
     ]
 })

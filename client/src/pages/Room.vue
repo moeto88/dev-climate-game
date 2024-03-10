@@ -15,11 +15,34 @@
                         </v-col>
                     </v-row>
                     <v-row align="center" justify="center">
-                        <v-col cols="auto">
+                        <v-col cols="auto" class="pb-0">
                             <div class="text-h6">Room Members: </div>
+                        </v-col>
+                    </v-row>
+                    <v-row align="center" justify="center">
+                        <v-col cols="auto" class="pt-0">
                             <v-list density="compact" class="text-h6 py-0">
-                                <v-list-item v-for="(username, i) in userList" :key="i" :value="username">
-                                    <v-list-item-title class="text-h6">{{ i + 1 + ". " + username }}</v-list-item-title>
+                                <v-list-item v-for="(user, i) in room.users" :key="i" :value="user" lines="one">
+                                    <v-list-item-title class="text-h6 mr-2">{{ i + 1 + ". " + user.name }}</v-list-item-title>
+                                    <template v-slot:append>
+                                        <div v-if="user.ready">
+                                            <v-row align="center" justify="center">
+                                                <v-col cols="auto" class=pr-0>
+                                                    <v-icon color="green-darken-3" >mdi-check-circle</v-icon>
+                                                </v-col>
+                                                <v-col cols="auto">
+                                                    <div class="text-subtitle-1">Country: {{ user.country }}</div>
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                        <div v-else>
+                                            <v-row align="center" justify="center">
+                                                <v-col cols="auto">
+                                                    <v-icon>mdi-clock</v-icon>
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                    </template>
                                 </v-list-item>
                             </v-list>
                         </v-col>
@@ -96,7 +119,7 @@
                     </v-row>
                     <v-row align="center" justify="center">
                         <v-col cols="auto" class="py-0">
-                            <v-radio-group v-model="country" inline>
+                            <v-radio-group v-model="country" inline :disabled="user.ready">
                                 <v-radio style="color: black" label="A" value="A" color="success"></v-radio>
                                 <v-radio style="color: black" label="B" value="B" color="success"></v-radio>
                                 <v-radio style="color: black" label="C" value="C" color="success"></v-radio>
@@ -108,14 +131,26 @@
                 <v-card-actions>
                     <v-row align="center" justify="center">
                         <v-col cols="auto" class="pt-0">
-                            <router-link :to="country !== '' ? '/game' : ''"
-                                style="text-decoration: none; color: inherit;">
-                                <v-btn class="font-weight-bold" variant="tonal" color="primary"
-                                    style="border: 2px solid #1976D2;" type="button" @click="startGame"
-                                    :disabled="country === ''">
-                                    Start Game
-                                </v-btn>
-                            </router-link>
+                            <v-btn v-if="!user.ready" class="font-weight-bold" variant="tonal" color="orange-darken-3" style="border: 2px solid #EF6C00;" type="button" @click="ready">Ready</v-btn>
+                            <v-btn v-else class="font-weight-bold" variant="tonal" color="blue-grey-darken-2" style="border: 2px solid #455A64;" type="button" @click="notReady">Not Ready</v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-actions>
+                <v-card-item v-if="ready_error != ''" class="pt-0">
+                    <v-row align="center" justify="center">
+                        <v-col cols="auto">
+                            <v-card-text class="pt-0" style="color: red;">{{ ready_error }}</v-card-text>
+                        </v-col>
+                    </v-row>
+                </v-card-item>
+                <v-card-actions v-if="user.host">
+                    <v-row align="center" justify="center">
+                        <v-col cols="auto">
+                            <v-btn class="font-weight-bold" variant="tonal" color="primary"
+                                style="border: 2px solid #1976D2;" type="button" @click="startGame"
+                                :disabled="room.readyCountryList.length <= 3">
+                                Start Game
+                            </v-btn>
                         </v-col>
                     </v-row>
                 </v-card-actions>
@@ -179,6 +214,17 @@
                                                         <v-expansion-panel>
                                                             <v-expansion-panel-title>Game Modes</v-expansion-panel-title>
                                                             <v-expansion-panel-text>
+                                                                <v-row justify="center" align="center">
+                                                                    <v-col cols="auto">
+                                                                        <div class="text-subtitle-1">The maximum number of rounds: </div>
+                                                                    </v-col>
+                                                                    <v-col cols="auto" class="px-0">
+                                                                        <v-text-field
+                                                                            :rules="rule_roundNum(parseInt(maxRoundNum))"
+                                                                            v-model="maxRoundNum" type="number"
+                                                                            density="compact"></v-text-field>
+                                                                    </v-col>
+                                                                </v-row>
                                                                 <v-card class="py-3 px-4 my-4" :elevation="0" border>
                                                                     <v-row>
                                                                         <v-col cols="auto">
@@ -630,6 +676,7 @@ import RoomHeader from "../components/RoomHeader.vue"
 import PPCard from '../components/PPCard.vue'
 import ResourceCard from "../components/ResourceCard.vue"
 import TechnologyCard from "../components/TechnologyCard.vue"
+import router from "../router/router"
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: 'Room',
@@ -642,14 +689,14 @@ export default {
     data() {
         return {
             error_message: "",
+            ready_error: "",
             setting_valid: true,
             userName: "",
             userId: "",
             joinType: "1",
             roomId: "",
             isJoined: false,
-            userList: [],
-            country: "",
+            country: "A",
             dialog: false,
             cardRadio: "1",
             tab: null,
@@ -773,7 +820,8 @@ export default {
                     co2Emission: 0,
                     price: 250
                 }
-            }
+            },
+            maxRoundNum: 6
         }
     },
     created() {
@@ -790,15 +838,36 @@ export default {
             this.updateRoom(room)
         })
         this.socket.on("updateRoom", (room) => {
-            this.userList = room.users.map(user => user.name)
             this.updateRoom(room)
+        })
+        this.socket.on("updateUser", (user) => {
+            this.updateUser(user)
         })
         this.socket.on("notifyError", (error) => {
             this.error_message = error
         })
+        this.socket.on("readyError", (error) => {
+            this.ready_error = error
+        })
+        this.socket.on("goToMainPage", (room) => {
+            this.updateRoom(room)
+            router.push("/game")
+            this.socket.emit("updateUserAndRoom", this.roomId, this.userId)
+        })
+        this.socket.on("setUsername", (room) => {
+            const user_A = room.users.find(user => user.country === "A");
+            const username_A = user_A.name
+            const user_B = room.users.find(user => user.country === "B");
+            const username_B = user_B.name
+            const user_C = room.users.find(user => user.country === "C");
+            const username_C = user_C.name
+            const user_D = room.users.find(user => user.country === "D");
+            const username_D = user_D.name
+            this.updateUsername(username_A, username_B, username_C, username_D)
+        })
     },
     methods: {
-        ...mapMutations(["setUser", "setRoom"]),
+        ...mapMutations(["setUser", "setRoom", "setUsername"]),
 
         createRoom() {
             let createRoomFlag = true
@@ -832,8 +901,13 @@ export default {
                 createRoomFlag = false;
             }
 
+            this.maxRoundNum = parseInt(this.maxRoundNum)
+            if(!(Number.isInteger(this.maxRoundNum) && this.maxRoundNum >= 1)) {
+                createRoomFlag = false;
+            }
+
             if(createRoomFlag) {
-                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo)
+                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo, this.maxRoundNum)
             }
             else {
                 this.setting_valid = false
@@ -846,13 +920,26 @@ export default {
             this.socket.emit("joinRoom", this.userName, this.roomId)
         },
         startGame() {
-            this.socket.emit("startGame", this.roomId, this.userId, this.country)
+            this.socket.emit("startGame", this.roomId)
         },
+
+        ready() {
+            this.socket.emit("ready", this.roomId, this.userId, this.country)
+        },
+
+        notReady() {
+            this.socket.emit("notReady", this.roomId, this.userId)
+        },
+
         updateUser(user) {
             this.setUser(user)
         },
         updateRoom(room) {
             this.setRoom(room)
+        },
+
+        updateUsername(username_A, username_B, username_C, username_D) {
+            this.setUsername({ username_A, username_B, username_C, username_D })
         },
 
         validateParameter(country) {
@@ -891,7 +978,7 @@ export default {
                 }
             }
             return isValid
-        }
+        },
     },
     computed: {
         ...mapState(["socket", "user", "room"]),
@@ -913,6 +1000,26 @@ export default {
                 return rules;
             };
         },
-    }
+
+        rule_roundNum() {
+            return (num) => {
+                const rules = [];
+                if (!(Number.isInteger(num) && num >= 1)) {
+                    rules.push("The value must be a non-negative integer.");
+                }
+                return rules;
+            };
+        }
+    },
+
+    beforeUnmount() {
+        this.socket.off("initUser");
+        this.socket.off("updateRoom");
+        this.socket.off("updateUser");
+        this.socket.off("notifyError");
+        this.socket.off("readyError");
+        this.socket.off("goToMainPage")
+        this.socket.off("setUsername")
+    },
 }
 </script>
