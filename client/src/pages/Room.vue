@@ -305,8 +305,8 @@
                                                                     <v-row justify="center" align="center"
                                                                         v-if="setting_naturalDisaster">
                                                                         <v-col cols="auto" class="pt-0">
-                                                                            <p class="text-subtitle-1">If the total CO2 emissions from all the countries up to the end of round 3 exceed 300,</p>
-                                                                            <p class="text-subtitle-1">a natural disaster will occur in round 4.</p>
+                                                                            <p class="text-subtitle-1">If the total amount of the CO2 emissions from all the countries exceeds 300,</p>
+                                                                            <p class="text-subtitle-1">a natural disaster will occur in all the countries in the next round.</p>
                                                                             <p class="text-subtitle-1">Players must pay €50 to address it.</p>
                                                                         </v-col>
                                                                     </v-row>

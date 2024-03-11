@@ -269,9 +269,7 @@ io.on("connection", (socket) => {
             fine = energyTargetFine + co2EmissionFine + historicalEmissionFine
 
             if(room.setting_naturalDisaster) {
-                if(room.roundNum <= 4) {
-                    room.totalCO2Emission_first3Round += user.resourceSet.currentCO2Emission
-                }
+                room.totalCO2Emission_first3Round += user.resourceSet.currentCO2Emission
             }
 
             user.resourceSet.remainingBalance -= fine
@@ -285,15 +283,14 @@ io.on("connection", (socket) => {
         })
 
         if(room.setting_naturalDisaster) {
-            if(room.roundNum == 4) {
-                if(room.totalCO2Emission_first3Round >= 300) {
-                    room.users.forEach(user => {
-                        user.resourceSet.remainingBalance -= room.naturalDisasterFine
-                        io.to(user.id).emit("updateUser", user)
-                        io.to(user.id).emit("show_naturalDisaster", room.naturalDisasterFine)
-                        io.to(user.id).emit("history", "You paid €" + room.naturalDisasterFine + " to address natural disaster.")
-                    })
-                }
+            if(room.totalCO2Emission_first3Round >= 300) {
+                room.users.forEach(user => {
+                    user.resourceSet.remainingBalance -= room.naturalDisasterFine
+                    io.to(user.id).emit("updateUser", user)
+                    io.to(user.id).emit("show_naturalDisaster", room.naturalDisasterFine)
+                    io.to(user.id).emit("history", "You paid €" + room.naturalDisasterFine + " to address natural disaster.")
+                })
+                room.totalCO2Emission_first3Round = 0
             }
         }
         io.in(roomId).emit("updateAll", room)
