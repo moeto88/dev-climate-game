@@ -25,7 +25,7 @@
                                                 <thead style="background-color: #BBDEFB;">
                                                     <tr>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Resource</th>
-                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Quantity</th>
+                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Quantity(bt)</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Power Plant</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Inactive</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Technology</th>
@@ -64,11 +64,11 @@
                                     <span v-else>
                                         <v-row>
                                             <v-col cols="12">
-                                                <div class="text-h5"> Quantity: </div>
+                                                <div class="text-h5"> Quantity(bt): </div>
                                                 <v-text-field v-model="quantity" :rules="ruleForQuantity" label=""></v-text-field>
                                             </v-col>
                                             <v-col cols="12">
-                                                <div class="text-h5"> Pay: </div>
+                                                <div class="text-h5"> Pay(M): </div>
                                                 <v-text-field v-model="payment" :rules="ruleForPayment" label=""></v-text-field>
                                             </v-col>
                                         </v-row>

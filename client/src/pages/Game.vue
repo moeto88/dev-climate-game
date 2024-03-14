@@ -64,7 +64,7 @@
                     </v-row>
                     <v-row class="justify-center" v-if="selectedUser">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2"> - Country {{ selectedUser.country }}</span>
+                            <span class="text-h4 font-weight-bold">{{ selectedUser.name }} <span v-if="youFlag" class="text-h4 font-weight-bold" style="color:red">(You)</span></span><span class="text-h5 font-weight-bold mx-2">- Country {{ selectedUser.country }}</span>
                         </v-col>
                     </v-row>
                     <v-row align="center" justify="center" v-if="selectedUser && !youFlag">

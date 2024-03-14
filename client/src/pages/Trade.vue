@@ -7,7 +7,7 @@
                 <v-col cols="4">
                     <v-row class="mb-2 mt-5" justify="center">
                         <v-col cols="auto">
-                            <span class="text-h3 font-weight-bold">{{ user.name }} <span class="text-h4 font-weight-bold"> - Country {{ user.country }} </span></span>
+                            <span class="text-h3 font-weight-bold">{{ user.name }} <span class="text-h4 font-weight-bold">- Country {{ user.country }} </span></span>
                         </v-col>
                     </v-row>
                     <v-row class="justify-center">
@@ -64,7 +64,7 @@
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
                                                             <th class="font-weight-bold text-subtitle-1">Resource</th>
-                                                            <th class="font-weight-bold text-subtitle-1">Quantity</th>
+                                                            <th class="font-weight-bold text-subtitle-1">Quantity(bt)</th>
                                                             <th class="font-weight-bold text-subtitle-1">Ask</th>
                                                         </tr>
                                                     </thead>

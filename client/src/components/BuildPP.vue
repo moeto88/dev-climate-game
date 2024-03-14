@@ -8,7 +8,7 @@
             <v-card class="pa-10">
                 <v-row class="d-flex align-center justify-center">
                     <v-col cols="auto">
-                        <div class="font-weight-bold" style="font-size: 2.3rem" model="user.resourceSet.remainingBalance">Balance: {{ user.resourceSet.remainingBalance }} Euro</div>
+                        <div class="font-weight-bold" style="font-size: 2.3rem" model="user.resourceSet.remainingBalance">Balance: €{{ user.resourceSet.remainingBalance }} M</div>
                     </v-col>
                 </v-row>
 
@@ -34,19 +34,19 @@
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-lightning-bolt" size="40" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Energy Output:  {{ room.ppInfo.fossil.energyOutput }} kW </div>
+                                                    <div class="text-h6"> Energy Output:  {{ room.ppInfo.fossil.energyOutput }} TWh </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-fire" size="40" color="red-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Consumption: {{ room.ppInfo.fossil.consumption }} </div>
+                                                    <div class="text-h6"> Consumption: {{ room.ppInfo.fossil.consumption }} bt </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
                                                     <v-icon icon="mdi-molecule-co2" size="40" color="green-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> CO2 Emission: {{ room.ppInfo.fossil.co2Emission }} </div>
+                                                    <div class="text-h6"> CO2 Emission: {{ room.ppInfo.fossil.co2Emission }} bt </div>
                                                 </v-col>
                                             </v-row>
                                         </v-sheet>
@@ -67,7 +67,7 @@
                                         <v-sheet color="white" class="pa-5">
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
-                                                    <div class="text-h5"> - {{ room.ppInfo.fossil.price }} Euro </div>
+                                                    <div class="text-h5"> - €{{ room.ppInfo.fossil.price }} M </div>
                                                 </v-col>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
                                                     <v-icon v-if="user.resourceSet.remainingBalance >= room.ppInfo.fossil.price" icon="mdi-check-outline" size="30" color="green" ></v-icon>
@@ -113,7 +113,7 @@
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-lightning-bolt" size="40" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Energy Output: {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} ~ {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} kW </div>
+                                                    <div class="text-h6"> Energy Output: {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} ~ {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} TWh </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
@@ -146,7 +146,7 @@
                                         <v-sheet color="white" class="pa-5">
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
-                                                    <div class="text-h5"> - {{ room.ppInfo.renewable.price }} Euro </div>
+                                                    <div class="text-h5"> - €{{ room.ppInfo.renewable.price }} M </div>
                                                 </v-col>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
                                                     <v-icon v-if="user.resourceSet.remainingBalance >= room.ppInfo.renewable.price" icon="mdi-check-outline" size="30" color="green" ></v-icon>
@@ -192,13 +192,13 @@
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-lightning-bolt" size="40" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Energy Output:  {{ room.ppInfo.nuclear.energyOutput }} kW </div>
+                                                    <div class="text-h6"> Energy Output:  {{ room.ppInfo.nuclear.energyOutput }} TWh </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-fire" size="40" color="red-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Consumption: {{ room.ppInfo.nuclear.consumption }} </div>
+                                                    <div class="text-h6"> Consumption: {{ room.ppInfo.nuclear.consumption }} bt </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
@@ -225,7 +225,7 @@
                                         <v-sheet color="white" class="pa-5">
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
-                                                    <div class="text-h5"> - {{ room.ppInfo.nuclear.price }} Euro </div>
+                                                    <div class="text-h5"> - €{{ room.ppInfo.nuclear.price }} M </div>
                                                 </v-col>
                                                 <v-col cols="auto" class="d-flex align-center justify-center">
                                                     <v-icon v-if="user.resourceSet.remainingBalance >= room.ppInfo.nuclear.price" icon="mdi-check-outline" size="30" color="green" ></v-icon>

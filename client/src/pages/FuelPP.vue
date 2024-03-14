@@ -68,19 +68,19 @@
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-lightning-bolt" size="25" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                <div class="text-body-1"> Energy Output:  {{ room.ppInfo.fossil.energyOutput }} kW </div>
+                                                <div class="text-body-1"> Energy Output:  {{ room.ppInfo.fossil.energyOutput }} TWh </div>
                                             </v-col>
                                         </v-row>
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-fire" size="25" color="red-darken-3" class="mr-2"></v-icon>
-                                                <div class="text-body-1"> Consumption: {{ room.ppInfo.fossil.consumption }} </div>
+                                                <div class="text-body-1"> Consumption: {{ room.ppInfo.fossil.consumption }} bt</div>
                                             </v-col>
                                         </v-row>
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex">
                                                 <v-icon icon="mdi-molecule-co2" size="25" color="green-darken-3" class="mr-2"></v-icon>
-                                                <div class="text-body-1"> CO2 Emission: {{ room.ppInfo.fossil.co2Emission }} </div>
+                                                <div class="text-body-1"> CO2 Emission: {{ room.ppInfo.fossil.co2Emission }} bt</div>
                                             </v-col>
                                         </v-row>
                                     </v-card>
@@ -128,8 +128,8 @@
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-lightning-bolt" size="25" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                <span class="text-body-1" v-if="weather == 'Good'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} kW </span>
-                                                <span class="text-body-1" v-if="weather == 'Bad'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} kW </span>
+                                                <span class="text-body-1" v-if="weather == 'Good'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} TWh </span>
+                                                <span class="text-body-1" v-if="weather == 'Bad'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} TWh </span>
                                             </v-col>
                                         </v-row>
                                         <v-row align="center" justify=center>
@@ -184,13 +184,13 @@
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-lightning-bolt" size="25" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                <div class="text-body-1"> Energy Output:  {{ room.ppInfo.nuclear.energyOutput }} kW </div>
+                                                <div class="text-body-1"> Energy Output:  {{ room.ppInfo.nuclear.energyOutput }} TWh </div>
                                             </v-col>
                                         </v-row>
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-fire" size="25" color="red-darken-3" class="mr-2"></v-icon>
-                                                <div class="text-body-1"> Consumption: {{ room.ppInfo.nuclear.consumption }} </div>
+                                                <div class="text-body-1"> Consumption: {{ room.ppInfo.nuclear.consumption }} bt</div>
                                             </v-col>
                                         </v-row>
                                         <v-row align="center" justify=center>

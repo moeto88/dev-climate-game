@@ -21,7 +21,7 @@
                                 </v-row>
                                 <v-row>
                                     <v-col class="text-right pt-0">
-                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.remainingBalance }} Euro</v-card-text>
+                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">€{{ user.resourceSet.remainingBalance }} M</v-card-text>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -39,7 +39,7 @@
                                 </v-row>
                                 <v-row>
                                     <v-col class="text-right pt-0">
-                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.currentEnergyOutput }} kW</v-card-text>
+                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.currentEnergyOutput }} TWh</v-card-text>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -57,7 +57,7 @@
                                 </v-row>
                                 <v-row>
                                     <v-col class="text-right pt-0">
-                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.currentCO2Emission }} kt</v-card-text>
+                                        <v-card-text class="font-weight-bold" style="font-size: 2.3rem">{{ user.resourceSet.currentCO2Emission }} bt</v-card-text>
                                     </v-col>
                                 </v-row>
                             </v-card>
