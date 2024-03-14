@@ -163,28 +163,33 @@ io.on("connection", (socket) => {
         }
         const room = rooms[roomIndex]
 
-        const userCountries = room.users.map(user => user.country);
-        let randomCountry;
-        do {
-            randomCountry = getRandomCountry(countryList_autoAssign);
-        } while (userCountries.includes(randomCountry));
-
-        const user = {
-            id: socket.id,
-            name: userName,
-            roomId: roomId,
-            ready: false,
-            country: randomCountry,
-            budget: 0,
-            resourceSet: {},
-            tradeButtonFlag: false,
-            host:false
+        if(room.users.length <= 3) {
+            const userCountries = room.users.map(user => user.country);
+            let randomCountry;
+            do {
+                randomCountry = getRandomCountry(countryList_autoAssign);
+            } while (userCountries.includes(randomCountry));
+    
+            const user = {
+                id: socket.id,
+                name: userName,
+                roomId: roomId,
+                ready: false,
+                country: randomCountry,
+                budget: 0,
+                resourceSet: {},
+                tradeButtonFlag: false,
+                host:false
+            }
+    
+            room.users.push(user)
+            socket.join(room.id)
+            io.to(user.id).emit("initUser", room, user)
+            io.in(room.id).emit("updateRoom", room)
         }
-
-        room.users.push(user)
-        socket.join(room.id)
-        io.to(user.id).emit("initUser", room, user)
-        io.in(room.id).emit("updateRoom", room)
+        else {
+            io.to(socket.id).emit("notifyError", "The room is full")
+        }
     })
 
     socket.on("ready", (roomId, userId) => {
