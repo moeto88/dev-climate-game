@@ -12,6 +12,7 @@
                     <v-row justify="center" align="center">
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[0].name }}</span>
+                            <span class="text-h5 font-weight-bold"> - Country {{ room.users[0].country }}</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -22,6 +23,7 @@
                     <v-row justify="center" align="center">
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[1].name }}</span>
+                            <span class="text-h5 font-weight-bold"> - Country {{ room.users[1].country }}</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -34,6 +36,7 @@
                     <v-row justify="center" align="center">
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[2].name }}</span>
+                            <span class="text-h5 font-weight-bold"> - Country {{ room.users[2].country }}</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -44,6 +47,7 @@
                     <v-row justify="center" align="center">
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[3].name }}</span>
+                            <span class="text-h5 font-weight-bold"> - Country {{ room.users[3].country }}</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">

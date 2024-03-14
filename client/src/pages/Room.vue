@@ -6,6 +6,12 @@
                 <v-card-item>
                     <v-row align="center" justify="center">
                         <v-col cols="auto">
+                            <label class="text-h5 font-weight-bold" for="userName" v-if="room.setting_RG=='red'" style="color:#F44336"> Game Mode: Red</label>
+                            <label class="text-h5 font-weight-bold" for="userName" v-if="room.setting_RG=='green'" style="color:#4CAF50"> Game Mode: Green</label>
+                        </v-col>
+                    </v-row>
+                    <v-row align="center" justify="center">
+                        <v-col cols="auto">
                             <label class="text-h6" for="userName"> User Name: {{ userName }}</label>
                         </v-col>
                     </v-row>
@@ -23,37 +29,33 @@
                         <v-col cols="auto" class="pt-0">
                             <v-list density="compact" class="text-h6 py-0">
                                 <v-list-item v-for="(user, i) in room.users" :key="i" :value="user" lines="one">
-                                    <v-list-item-title class="text-h6 mr-2">{{ i + 1 + ". " + user.name }}</v-list-item-title>
+                                    <v-list-item-title class="text-h6 mr-4">{{ i + 1 + ". " + user.name }}</v-list-item-title>
                                     <template v-slot:append>
-                                        <div v-if="user.ready">
-                                            <v-row align="center" justify="center">
-                                                <v-col cols="auto" class=pr-0>
+                                        <v-row align="center" justify="center">
+                                            <v-col cols="auto" class="pr-0">
+                                                <div class="text-subtitle-1">Country: {{ user.country }}</div>
+                                            </v-col>
+                                            <div v-if="user.ready">
+                                                <v-col cols="auto">
                                                     <v-icon color="green-darken-3" >mdi-check-circle</v-icon>
                                                 </v-col>
-                                                <v-col cols="auto">
-                                                    <div class="text-subtitle-1">Country: {{ user.country }}</div>
-                                                </v-col>
-                                            </v-row>
-                                        </div>
-                                        <div v-else>
-                                            <v-row align="center" justify="center">
+                                            </div>
+                                            <div v-else>
                                                 <v-col cols="auto">
                                                     <v-icon>mdi-clock</v-icon>
                                                 </v-col>
-                                            </v-row>
-                                        </div>
+                                            </div>
+                                        </v-row>
                                     </template>
                                 </v-list-item>
                             </v-list>
                         </v-col>
                     </v-row>
+                </v-card-item>
+                <v-card-actions>
                     <v-row align="center" justify="center">
-                        <v-col cols="1"></v-col>
-                        <v-col cols="auto" class="pb-0">
-                            <div class="text-h6">Select Your Country</div>
-                        </v-col>
-                        <v-col cols="auto" class="pl-0 pb-0">
-                            <v-btn size="small" color="green" @click="dialog = true" :elevation="0">Info</v-btn>
+                        <v-col cols="auto">
+                            <v-btn size="small" color="green" @click="dialog = true" :elevation="0" variant="outlined" style="border: 2px solid #4CAF50;" class="font-weight-bold">Country Info</v-btn>
                             <v-dialog v-model="dialog" width="auto">
                                 <v-card>
                                     <v-tabs align-tabs="center" v-model="tab" color="deep-purple-accent-4">
@@ -116,39 +118,18 @@
                                 </v-card>
                             </v-dialog>
                         </v-col>
-                    </v-row>
-                    <v-row align="center" justify="center">
-                        <v-col cols="auto" class="py-0">
-                            <v-radio-group v-model="country" inline :disabled="user.ready">
-                                <v-radio style="color: black" label="A" value="A" color="success"></v-radio>
-                                <v-radio style="color: black" label="B" value="B" color="success"></v-radio>
-                                <v-radio style="color: black" label="C" value="C" color="success"></v-radio>
-                                <v-radio style="color: black" label="D" value="D" color="success"></v-radio>
-                            </v-radio-group>
-                        </v-col>
-                    </v-row>
-                </v-card-item>
-                <v-card-actions>
-                    <v-row align="center" justify="center">
-                        <v-col cols="auto" class="pt-0">
+                        <v-col cols="auto">
                             <v-btn v-if="!user.ready" class="font-weight-bold" variant="tonal" color="orange-darken-3" style="border: 2px solid #EF6C00;" type="button" @click="ready">Ready</v-btn>
                             <v-btn v-else class="font-weight-bold" variant="tonal" color="blue-grey-darken-2" style="border: 2px solid #455A64;" type="button" @click="notReady">Not Ready</v-btn>
                         </v-col>
                     </v-row>
                 </v-card-actions>
-                <v-card-item v-if="ready_error != ''" class="pt-0">
-                    <v-row align="center" justify="center">
-                        <v-col cols="auto">
-                            <v-card-text class="pt-0" style="color: red;">{{ ready_error }}</v-card-text>
-                        </v-col>
-                    </v-row>
-                </v-card-item>
-                <v-card-actions v-if="user.host">
+                <v-card-actions v-if="user.host" class="mt-3">
                     <v-row align="center" justify="center">
                         <v-col cols="auto">
                             <v-btn class="font-weight-bold" variant="tonal" color="primary"
                                 style="border: 2px solid #1976D2;" type="button" @click="startGame"
-                                :disabled="room.readyCountryList.length <= 3">
+                                :disabled="room.readyCountryList.length <= 3" size="x-large">
                                 Start Game
                             </v-btn>
                         </v-col>
@@ -168,7 +149,7 @@
                     </v-row>
                     <v-row align="center" justify="center" class="mt-0">
                         <v-col cols="auto">
-                            <v-radio-group v-model="joinType" inline>
+                            <v-radio-group v-model="joinType" inline hide-details>
                                 <v-radio style="color: black" label="Create Room" value="1" color="success"></v-radio>
                                 <v-radio style="color: black" label="Join Room" value="2" color="success"></v-radio>
                             </v-radio-group>
@@ -178,12 +159,20 @@
                 <span v-if="joinType == '1'">
                     <v-card-actions>
                         <v-row align="center" justify="center">
-                            <v-col cols="auto">
+                            <v-col cols="12">
                                 <v-row align="center" justify="center">
                                     <v-col cols="auto">
-                                        <v-btn variant="tonal" class="font-weight-bold" @click="createRoom"
+                                        <v-chip-group mandatory v-model="setting_RG">
+                                            <v-chip class="font-weight-bold" variant="outlined" color="red" size="x-large" style="border: 2px solid #F44336;" value="red">Red</v-chip>
+                                            <v-chip class="font-weight-bold" variant="outlined" color="green" size="x-large" style="border: 2px solid #4CAF50;" value="green">Green</v-chip>
+                                        </v-chip-group>
+                                    </v-col>
+                                </v-row>
+                                <v-row align="center" justify="center">
+                                    <v-col cols="auto">
+                                        <v-btn variant="tonal" size="x-large" class="font-weight-bold" @click="createRoom"
                                             color="primary" style="border: 2px solid #1976D2;"
-                                            :disabled="(userName=='')">Create Room</v-btn>
+                                            :disabled="(userName=='') || (setting_RG=='')">Create Room</v-btn>
                                     </v-col>
                                 </v-row>
                                 <v-row v-if="!setting_valid" align="center" justify="center">
@@ -195,7 +184,7 @@
                                 <v-row align="center" justify="center">
                                     <v-col cols="auto">
                                         <v-btn variant="tonal" class="font-weight-bold" color="yellow-darken-3"
-                                            style="border: 2px solid #FDD835;" @click="dialog = true">Setting</v-btn>
+                                            style="border: 2px solid #FDD835;" @click="dialog = true" disabled>Setting</v-btn>
                                         <v-dialog v-model="dialog" max-width="1050">
                                             <v-card class="pa-5">
                                                 <v-container>
@@ -670,14 +659,14 @@
                     </v-row>
                     <v-card-actions>
                         <v-row align="center" justify="center" class="mt-10">
-                            <v-btn variant="tonal" class="font-weight-bold" color="primary"
+                            <v-btn variant="tonal" class="font-weight-bold" color="primary" size="x-large"
                                 style="border: 2px solid #1976D2;" @click="joinRoom" :disabled="(userName=='')">Join
                                 Room</v-btn>
                         </v-row>
                     </v-card-actions>
                 </span>
-                <v-card-item>
-                    <v-row v-if="error_message != ''" align="center" justify="center">
+                <v-card-item v-if="error_message != ''">
+                    <v-row align="center" justify="center">
                         <v-col cols="auto">
                             <v-card-text style="color: red;">{{ error_message }}</v-card-text>
                         </v-col>
@@ -707,14 +696,12 @@ export default {
     data() {
         return {
             error_message: "",
-            ready_error: "",
             setting_valid: true,
             userName: "",
             userId: "",
             joinType: "1",
             roomId: "",
             isJoined: false,
-            country: "A",
             dialog: false,
             cardRadio: "1",
             tab: null,
@@ -726,6 +713,7 @@ export default {
             fine_high_historicalEmission: 40,
             fine_middle_historicalEmission: 20,
             setting_naturalDisaster: false,
+            setting_RG: "",
             countryList: [
                 { 
                     name: 'Country A',  
@@ -775,7 +763,7 @@ export default {
                 },
                 { 
                     name: 'Country C',  
-                    budget: 40,
+                    budget: 50,
                     fine: 20,
                     resourceSet: {
                         resource: {
@@ -798,7 +786,7 @@ export default {
                 },
                 { 
                     name: 'Country D',  
-                    budget: 30,
+                    budget: 40,
                     fine: 20,
                     resourceSet: {
                         resource: {
@@ -865,9 +853,6 @@ export default {
         this.socket.on("notifyError", (error) => {
             this.error_message = error
         })
-        this.socket.on("readyError", (error) => {
-            this.ready_error = error
-        })
         this.socket.on("goToMainPage", (room) => {
             this.updateRoom(room)
             router.push("/game")
@@ -926,7 +911,7 @@ export default {
             }
 
             if(createRoomFlag) {
-                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo, this.maxRoundNum, this.setting_naturalDisaster)
+                this.socket.emit("createRoom", this.userName, this.countryList, this.setting_co2Emission, this.setting_historicalEmission, emission_fineList, this.ppInfo, this.maxRoundNum, this.setting_naturalDisaster, this.setting_RG)
             }
             else {
                 this.setting_valid = false
@@ -943,7 +928,7 @@ export default {
         },
 
         ready() {
-            this.socket.emit("ready", this.roomId, this.userId, this.country)
+            this.socket.emit("ready", this.roomId, this.userId)
         },
 
         notReady() {

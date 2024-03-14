@@ -5,7 +5,7 @@
                 <v-card-item class="d-flex justify-center py-4">
                     <div class="text-h6 font-weight-bold">
                         Your Energy Target: {{ user.resourceSet.energyTarget }}
-                        <v-tooltip activator="parent" location="end" max-width="800px">
+                        <v-tooltip activator="parent" location="end" max-width="800px" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
                                 <p>Energy Target is the amount of electricity you need to produce in this round.</p>
                                 <p>You will be get fined if you cannot meet this target.</p>
@@ -20,7 +20,7 @@
                 <v-card-item class="d-flex justify-center py-4">
                     <div class="text-h6 font-weight-bold">
                         Your CO2 Emission this round: {{ user.resourceSet.currentCO2Emission }}
-                        <v-tooltip activator="parent" location="end">
+                        <v-tooltip activator="parent" location="end" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
                                 <p>This number represents your CO2 Emission this round.</p>
                                 <p>You'll have to pay a emission tax according to the tax rate.</p>

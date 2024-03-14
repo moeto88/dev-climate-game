@@ -80,19 +80,19 @@
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
                                                             <th class="font-weight-bold text-subtitle-1">Power Plants</th>
-                                                            <th class="font-weight-bold text-subtitle-1">Owned</th>
+                                                            <th class="font-weight-bold text-subtitle-1">Inactive</th>
                                                             <th class="font-weight-bold text-subtitle-1">Ask</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(value, key) in partner.resourceSet.powerPlant" :key="key">
+                                                        <tr v-for="(value, key) in partner.resourceSet.remainingFuelingTime" :key="key">
                                                             <td>{{ room.technologyName[key] }}</td>
                                                             <td>{{ value }}</td>
                                                             <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'powerPlant'"/></td>
                                                         </tr>
                                                     </tbody>
                                                 </v-table>
-                                                <v-table>
+                                                <!-- <v-table>
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
                                                             <th class="font-weight-bold text-subtitle-1">Technology</th>
@@ -108,7 +108,7 @@
                                                             <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'technology'"/></td>
                                                         </tr>
                                                     </tbody>
-                                                </v-table>
+                                                </v-table> -->
                                             </v-window-item>
                                         </v-window>
                                     </v-card-text>

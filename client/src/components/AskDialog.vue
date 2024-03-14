@@ -27,7 +27,7 @@
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Resource</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Quantity</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Power Plant</th>
-                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Owned</th>
+                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Inactive</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Technology</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Owned</th>
                                                     </tr>
@@ -144,7 +144,7 @@ export default {
                 return value
             }
             else if(this.type == "powerPlant") {
-                value = partner.resourceSet.powerPlant[this.keyName]
+                value = partner.resourceSet.remainingFuelingTime[this.keyName]
                 return value
             }
             else {

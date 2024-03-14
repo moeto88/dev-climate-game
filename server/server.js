@@ -1,6 +1,5 @@
 const express = require("express")
 const { v4: uuidv4 } = require('uuid');
-const util = require('util');
 
 const app = express()
 
@@ -18,7 +17,6 @@ const io = new Server(expServer, {
 
 const rooms = []
 
-
 const resource_name = {
     fossilFuel: "Fossil Fuel",
     uranium: "Uranium"
@@ -30,15 +28,24 @@ const technology_name = {
     nuclear: "Nuclear"
 }
 
+const countryList_autoAssign = ["A", "B", "C", "D"];
+
+function getRandomCountry(array) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+}
+
 io.on("connection", (socket) => {
-    socket.on("createRoom", (userName, countryList, setting_co2Emission, setting_historicalEmission, emission_fineList, ppInfo, maxRoundNum, setting_naturalDisaster) => {
+    socket.on("createRoom", (userName, countryList, setting_co2Emission, setting_historicalEmission, emission_fineList, ppInfo, maxRoundNum, setting_naturalDisaster, setting_RG) => {
         const roomId = generateRoomId()
+        const randomCountry = getRandomCountry(countryList_autoAssign);
+
         const user = {
             id: socket.id,
             name: userName,
             roomId: roomId,
             ready: false,
-            country: "",
+            country: randomCountry,
             budget: 0,
             resourceSet: {},
             tradeButtonFlag: false,
@@ -139,7 +146,8 @@ io.on("connection", (socket) => {
             emission_fineList: emission_fineList,
             setting_naturalDisaster: setting_naturalDisaster,
             totalCO2Emission_first3Round: 0,
-            naturalDisasterFine: 50
+            naturalDisasterFine: 50,
+            setting_RG: setting_RG
         }
         rooms.push(room)
         socket.join(roomId)
@@ -153,41 +161,40 @@ io.on("connection", (socket) => {
             io.to(socket.id).emit("notifyError", "Cannot find a room. Please enter a valid room ID again")
             return
         }
+        const room = rooms[roomIndex]
+
+        const userCountries = room.users.map(user => user.country);
+        let randomCountry;
+        do {
+            randomCountry = getRandomCountry(countryList_autoAssign);
+        } while (userCountries.includes(randomCountry));
 
         const user = {
             id: socket.id,
             name: userName,
             roomId: roomId,
             ready: false,
-            country: "",
+            country: randomCountry,
             budget: 0,
             resourceSet: {},
             tradeButtonFlag: false,
             host:false
         }
 
-        const room = rooms[roomIndex]
         room.users.push(user)
         socket.join(room.id)
         io.to(user.id).emit("initUser", room, user)
         io.in(room.id).emit("updateRoom", room)
     })
 
-    socket.on("ready", (roomId, userId, country) => {
+    socket.on("ready", (roomId, userId) => {
         const roomIndex = rooms.findIndex((r) => r.id == roomId)
         const room = rooms[roomIndex]
         const user = room.users.find((u) => u.id == userId)
-        if(!(room.readyCountryList.includes(country))) {
-            user.country = country
-            room.readyCountryList.push(country)
-            user.ready = true
-            io.to(user.id).emit("updateUser", user)
-            io.to(user.id).emit("readyError", "")
-            io.in(roomId).emit("updateRoom", room)
-        }
-        else {
-            io.to(user.id).emit("readyError", "The selected country is already taken")
-        }
+        room.readyCountryList.push(user.country)
+        user.ready = true
+        io.to(user.id).emit("updateUser", user)
+        io.in(roomId).emit("updateRoom", room)
     })
 
     socket.on("notReady", (roomId, userId) => {
@@ -195,7 +202,6 @@ io.on("connection", (socket) => {
         const room = rooms[roomIndex]
         const user = room.users.find((u) => u.id == userId)
         room.readyCountryList = room.readyCountryList.filter(country => country !== user.country);
-        user.country = ""
         user.ready = false
         io.to(user.id).emit("updateUser", user)
         io.in(roomId).emit("updateRoom", room)
@@ -234,43 +240,49 @@ io.on("connection", (socket) => {
             user.resourceSet.remainingBalance += user.budget
             user.resourceSet.remainingFuelingTime = deepCopy(user.resourceSet.powerPlant)
 
+            
             let fine = 0
             let energyTargetFine = 0
             let co2EmissionFine = 0
             let historicalEmissionFine = 0
             let historicalEmissionEarning = 0
-            if(user.resourceSet.currentEnergyOutput < user.resourceSet.energyTarget) {
-                energyTargetFine = room.countryFineList[user.country]
-                user.resourceSet.currentEnergyOutput = 0
-            }
-            else {
-                user.resourceSet.currentEnergyOutput -= user.resourceSet.energyTarget
-            }
 
-            if(room.setting_co2Emission) {
-                co2EmissionFine = (user.resourceSet.currentCO2Emission / 10) * room.emission_fineList.fine_co2Emission
-            }
-
-            if(room.setting_historicalEmission) {
-                if(user.resourceSet.historicalEmission == "high") {
-                    historicalEmissionFine = room.emission_fineList.fine_high_historicalEmission
+            if(room.setting_RG == "green") {
+                if(user.resourceSet.currentEnergyOutput < user.resourceSet.energyTarget) {
+                    energyTargetFine = room.countryFineList[user.country]
+                    user.resourceSet.currentEnergyOutput = 0
                 }
-
-                if(user.resourceSet.historicalEmission == "middle") {
-                    historicalEmissionFine = room.emission_fineList.fine_middle_historicalEmission
+                else {
+                    user.resourceSet.currentEnergyOutput -= user.resourceSet.energyTarget
                 }
-
-                if(user.resourceSet.historicalEmission == "low") {
-                    historicalEmissionEarning = (room.emission_fineList.fine_high_historicalEmission + room.emission_fineList.fine_middle_historicalEmission) / 2
-                    user.resourceSet.remainingBalance += historicalEmissionEarning
+    
+                if(room.setting_co2Emission) {
+                    co2EmissionFine = (user.resourceSet.currentCO2Emission / 10) * room.emission_fineList.fine_co2Emission
+                }
+    
+                if(room.setting_historicalEmission) {
+                    if(user.resourceSet.historicalEmission == "high") {
+                        historicalEmissionFine = room.emission_fineList.fine_high_historicalEmission
+                    }
+    
+                    if(user.resourceSet.historicalEmission == "middle") {
+                        historicalEmissionFine = room.emission_fineList.fine_middle_historicalEmission
+                    }
+    
+                    if(user.resourceSet.historicalEmission == "low") {
+                        historicalEmissionEarning = (room.emission_fineList.fine_high_historicalEmission + room.emission_fineList.fine_middle_historicalEmission) / 2
+                        user.resourceSet.remainingBalance += historicalEmissionEarning
+                    }
+                }
+                
+                if(room.setting_naturalDisaster) {
+                    room.totalCO2Emission_first3Round += user.resourceSet.currentCO2Emission
                 }
             }
+            
 
             fine = energyTargetFine + co2EmissionFine + historicalEmissionFine
 
-            if(room.setting_naturalDisaster) {
-                room.totalCO2Emission_first3Round += user.resourceSet.currentCO2Emission
-            }
 
             user.resourceSet.remainingBalance -= fine
             user.resourceSet.currentCO2Emission = 0
@@ -282,7 +294,7 @@ io.on("connection", (socket) => {
             io.to(user.id).emit("history", "You got fined €" + fine + ".")
         })
 
-        if(room.setting_naturalDisaster) {
+        if(room.setting_naturalDisaster && room.setting_RG == "green") {
             if(room.totalCO2Emission_first3Round >= 300) {
                 room.users.forEach(user => {
                     user.resourceSet.remainingBalance -= room.naturalDisasterFine
@@ -486,8 +498,10 @@ io.on("connection", (socket) => {
         else if(request.type == "powerPlant") {
             if(user.resourceSet.powerPlant[request.keyName] >= request.quantity && partner.resourceSet.remainingBalance >= request.payment) {
                 user.resourceSet.powerPlant[request.keyName] -= request.quantity
+                user.resourceSet.remainingFuelingTime[request.keyName] -= request.quantity
                 user.resourceSet.remainingBalance += request.payment
                 partner.resourceSet.powerPlant[request.keyName] += request.quantity
+                partner.resourceSet.remainingFuelingTime[request.keyName] += request.quantity
                 partner.resourceSet.remainingBalance -= request.payment
 
                 io.in(roomId).emit("updateAll", room)
