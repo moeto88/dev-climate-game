@@ -92,12 +92,11 @@
                                                         </tr>
                                                     </tbody>
                                                 </v-table>
-                                                <!-- <v-table>
+                                                <v-table>
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
                                                             <th class="font-weight-bold text-subtitle-1">Technology</th>
                                                             <th class="font-weight-bold text-subtitle-1">Owned</th>
-                                                            <th class="font-weight-bold text-subtitle-1">Ask</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -105,10 +104,9 @@
                                                             <td>{{ room.technologyName[key] }}</td>
                                                             <td v-if="value == true">Yes</td>
                                                             <td v-else>No</td>
-                                                            <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'technology'"/></td>
                                                         </tr>
                                                     </tbody>
-                                                </v-table> -->
+                                                </v-table>
                                             </v-window-item>
                                         </v-window>
                                     </v-card-text>

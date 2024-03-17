@@ -825,7 +825,7 @@ export default {
                     energyOutput: 40,
                     consumption: 50,
                     co2Emission: 0,
-                    price: 250
+                    price: 300
                 }
             },
             maxRoundNum: 6

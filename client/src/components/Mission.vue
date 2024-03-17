@@ -19,7 +19,7 @@
             <v-card color="red-accent-1 mb-8" height="60">
                 <v-card-item class="d-flex justify-center py-4">
                     <div class="text-h6 font-weight-bold">
-                        Your CO2 Emission this round: {{ user.resourceSet.currentCO2Emission }} bt
+                        Your CO2 Emission This Round: {{ user.resourceSet.currentCO2Emission }} bt
                         <v-tooltip activator="parent" location="end" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
                                 <p>This number represents your CO2 Emission this round.</p>
