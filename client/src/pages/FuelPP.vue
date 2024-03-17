@@ -128,7 +128,7 @@
                                         <v-row align="center" justify=center>
                                             <v-col cols="auto" class="d-flex pb-0">
                                                 <v-icon icon="mdi-lightning-bolt" size="25" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                <span class="text-body-1" v-if="weather == 'Good'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} TWh </span>
+                                                <span class="text-body-1" v-if="weather == 'Good'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput }} TWh </span>
                                                 <span class="text-body-1" v-if="weather == 'Bad'"> Energy Output:  {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} TWh </span>
                                             </v-col>
                                         </v-row>

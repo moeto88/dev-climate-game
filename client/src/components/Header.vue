@@ -149,13 +149,13 @@
     <v-dialog v-model="dialog_nextRoundInfo" width="1200">
         <v-card class="pa-10">
             <div class="text-h4 mb-4">Now, Round {{ roundNum }}</div>
-            <div class="text-h5 mb-1">You received a budget of €{{ budget }}</div>
-            <div v-if="(room.setting_historicalEmission) && (user.resourceSet.historicalEmission == 'low') && (room.setting_RG == 'green')" class="text-h5 mb-1">You received €{{ historicalEmissionEarning }} from the developing countries fund</div>
-            <div class="text-h5" style="color: red">You got fined €{{ fine }} in total</div>
+            <div class="text-h5 mb-1">You received a budget of €{{ budget }} M</div>
+            <div v-if="(room.setting_historicalEmission) && (user.resourceSet.historicalEmission == 'low') && (room.setting_RG == 'green')" class="text-h5 mb-1">You received €{{ historicalEmissionEarning }} M from the developing countries fund</div>
+            <div class="text-h5" style="color: red">You got fined €{{ fine }} M in total</div>
             <ul>
-                <li class="text-h6" style="color: red">€{{ energyTargetFine }} for not meeting your energy target</li>
-                <li v-if="room.setting_co2Emission" class="text-h6" style="color: red">€{{ co2EmissionFine }} for your CO2 emissions</li>
-                <li v-if="(room.setting_historicalEmission) && (user.resourceSet.historicalEmission !== 'low')" class="text-h6" style="color: red">€{{ historicalEmissionFine }} for contributing the historical emissions</li>
+                <li class="text-h6" style="color: red">€{{ energyTargetFine }} M for not meeting your energy target</li>
+                <li v-if="room.setting_co2Emission" class="text-h6" style="color: red">€{{ co2EmissionFine }} M for your CO2 emissions</li>
+                <li v-if="(room.setting_historicalEmission) && (user.resourceSet.historicalEmission !== 'low')" class="text-h6" style="color: red">€{{ historicalEmissionFine }} M for contributing the historical emissions</li>
             </ul>
         </v-card>
     </v-dialog>
@@ -173,7 +173,7 @@
             <v-row justify="center" align="center">
                 <v-col cols="auto" class="pt-0">
                     <ul>
-                        <li class="text-h6" style="color: red">You paid €{{ naturalDisasterFine }} to address natural disaster</li>
+                        <li class="text-h6" style="color: red">You paid €{{ naturalDisasterFine }} M to address natural disaster</li>
                         <li class="text-h6" style="color: red">All the countries need to be careful of their CO2 emissions.</li>
                     </ul>
                 </v-col>

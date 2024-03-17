@@ -113,7 +113,7 @@
                                             <v-row>
                                                 <v-col cols="auto" class="d-flex align-center justify-center pb-0">
                                                     <v-icon icon="mdi-lightning-bolt" size="40" color="yellow-darken-3" class="mr-2"></v-icon>
-                                                    <div class="text-h6"> Energy Output: {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} ~ {{ room.ppInfo.renewable.energyOutput + room.weatherParam }} TWh </div>
+                                                    <div class="text-h6"> Energy Output: {{ room.ppInfo.renewable.energyOutput - room.weatherParam }} ~ {{ room.ppInfo.renewable.energyOutput }} TWh </div>
                                                 </v-col>
                                             </v-row>
                                             <v-row>
