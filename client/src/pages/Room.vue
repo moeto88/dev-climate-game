@@ -69,11 +69,11 @@
                                                 :value="index + 1">
                                                 <v-row justify="center" align="center">
                                                     <v-col cols="auto" class="">
-                                                        <div class="text-h5">Annual Budget: €{{ country.budget }}</div>
+                                                        <div class="text-h5">Annual Budget: €{{ country.budget }} M</div>
                                                     </v-col>
                                                     <v-col cols="auto" class="">
                                                         <div class="text-h5">Energy Target: {{
-                                                            country.resourceSet.energyTarget }}</div>
+                                                            country.resourceSet.energyTarget }} TWh</div>
                                                     </v-col>
                                                 </v-row>
                                                 <v-row v-if="room.setting_historicalEmission" justify="center"
@@ -721,7 +721,7 @@ export default {
                     fine: 120,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 800,
+                            fossilFuel: 500,
                             uranium: 0,
                         },
                         powerPlant: {
@@ -744,7 +744,7 @@ export default {
                     fine: 100,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 300,
+                            fossilFuel: 200,
                             uranium: 0,
                         },
                         powerPlant: {
@@ -767,7 +767,7 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 2000,
+                            fossilFuel: 1000,
                             uranium: 200,
                         },
                         powerPlant: {
@@ -790,7 +790,7 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 1000,
+                            fossilFuel: 800,
                             uranium: 400,
                         },
                         powerPlant: {
