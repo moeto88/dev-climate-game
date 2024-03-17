@@ -717,7 +717,7 @@ export default {
             countryList: [
                 { 
                     name: 'Country A',  
-                    budget: 400,
+                    budget: 500,
                     fine: 120,
                     resourceSet: {
                         resource: {
@@ -740,7 +740,7 @@ export default {
                 },
                 { 
                     name: 'Country B', 
-                    budget: 300, 
+                    budget: 400, 
                     fine: 100,
                     resourceSet: {
                         resource: {
@@ -816,10 +816,10 @@ export default {
                     price: 100
                 },
                 renewable: {
-                    energyOutput: 5,
+                    energyOutput: 15,
                     consumption: 0,
                     co2Emission: 0,
-                    price: 150
+                    price: 200
                 },
                 nuclear: {
                     energyOutput: 40,
