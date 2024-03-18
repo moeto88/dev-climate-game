@@ -1,9 +1,9 @@
 <template>
     <v-row style="max-height: 75px;" justify="center">
-        <v-col cols="auto" md="3">
-            <v-card color="yellow-lighten-3 mb-8" height="60">
+        <v-col cols="auto">
+            <v-card color="yellow-lighten-3 mb-8" height="60" border class="px-5">
                 <v-card-item class="d-flex justify-center py-4">
-                    <div class="text-h6 font-weight-bold">
+                    <div class="text-h5 font-weight-bold">
                         Your Energy Target: {{ user.resourceSet.energyTarget }} TWh
                         <v-tooltip activator="parent" location="end" max-width="800px" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
@@ -15,10 +15,10 @@
                 </v-card-item>
             </v-card>
         </v-col>
-        <v-col cols="auto" md="5" v-if="room.setting_co2Emission">
-            <v-card color="red-accent-1 mb-8" height="60">
+        <v-col cols="auto" v-if="room.setting_co2Emission">
+            <v-card color="red-accent-1 mb-8" height="60" border class="px-5">
                 <v-card-item class="d-flex justify-center py-4">
-                    <div class="text-h6 font-weight-bold">
+                    <div class="text-h5 font-weight-bold">
                         Your CO2 Emission This Round: {{ user.resourceSet.currentCO2Emission }} bt
                         <v-tooltip activator="parent" location="end" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
