@@ -717,11 +717,11 @@ export default {
             countryList: [
                 { 
                     name: 'Country A',  
-                    budget: 500,
-                    fine: 120,
+                    budget: 550,
+                    fine: 200,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 500,
+                            fossilFuel: 600,
                             uranium: 0,
                         },
                         powerPlant: {
@@ -740,11 +740,11 @@ export default {
                 },
                 { 
                     name: 'Country B', 
-                    budget: 400, 
-                    fine: 100,
+                    budget: 450, 
+                    fine: 150,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 200,
+                            fossilFuel: 300,
                             uranium: 0,
                         },
                         powerPlant: {
@@ -767,8 +767,8 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 1000,
-                            uranium: 200,
+                            fossilFuel: 1200,
+                            uranium: 100,
                         },
                         powerPlant: {
                             fossil: 1,
@@ -790,8 +790,8 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 800,
-                            uranium: 400,
+                            fossilFuel: 900,
+                            uranium: 300,
                         },
                         powerPlant: {
                             fossil: 1,
@@ -819,16 +819,16 @@ export default {
                     energyOutput: 15,
                     consumption: 0,
                     co2Emission: 0,
-                    price: 200
+                    price: 250
                 },
                 nuclear: {
                     energyOutput: 40,
                     consumption: 50,
                     co2Emission: 0,
-                    price: 300
+                    price: 400
                 }
             },
-            maxRoundNum: 6
+            maxRoundNum: 5
         }
     },
     created() {

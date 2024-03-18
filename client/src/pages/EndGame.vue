@@ -16,6 +16,12 @@
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0 mb-2">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[0].num_meetingTarget <= 1">Energy Target: {{ room.users[0].num_meetingTarget }} time achieved</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[0].num_meetingTarget }} times achieved</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
                         <SummaryCard :user="room.users[0]" />
                     </v-row>
                 </v-col>
@@ -24,6 +30,12 @@
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[1].name }}</span>
                             <span class="text-h5 font-weight-bold"> - Country {{ room.users[1].country }}</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0 mb-2">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[1].num_meetingTarget <= 1">Energy Target: {{ room.users[1].num_meetingTarget }} time achieved</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[1].num_meetingTarget }} times achieved</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -40,6 +52,12 @@
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0 mb-2">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[2].num_meetingTarget <= 1">Energy Target: {{ room.users[2].num_meetingTarget }} time achieved</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[2].num_meetingTarget }} times achieved</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
                         <SummaryCard :user="room.users[2]" />
                     </v-row>
                 </v-col>
@@ -48,6 +66,12 @@
                         <v-col cols="auto">
                             <span class="text-h4 font-weight-bold">{{ room.users[3].name }}</span>
                             <span class="text-h5 font-weight-bold"> - Country {{ room.users[3].country }}</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0 mb-2">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[3].num_meetingTarget <= 1">Energy Target: {{ room.users[3].num_meetingTarget }} time achieved</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[3].num_meetingTarget }} times achieved</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">

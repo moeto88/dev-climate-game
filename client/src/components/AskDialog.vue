@@ -8,7 +8,8 @@
                         <v-card :elevation="0" class="pa-5">
                             <v-row>
                                 <v-col cols="auto">
-                                    <div class="text-h4 font-weight-bold">Ask the Trade Partner</div>
+                                    <div v-if="type == 'resource'" class="text-h4 font-weight-bold">Buying {{ room.resourceName[keyName] }}</div>
+                                    <div v-else class="text-h4 font-weight-bold">Buying a {{ room.technologyName[keyName] }} Power Plant</div>
                                 </v-col>
                             </v-row>
                             <v-row class="mt-5">
@@ -27,9 +28,7 @@
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Resource</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">Quantity(bt)</th>
                                                         <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Power Plant</th>
-                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Inactive</th>
-                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Technology</th>
-                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Owned</th>
+                                                        <th class="font-weight-bold text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">Technology</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -38,30 +37,22 @@
                                                         <td class="text-subtitle-1" :class="{ 'd-none': type !== 'resource' }">{{ value }}</td>
                                                         <td class="text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">{{ room.technologyName[keyName] }}</td>
                                                         <td class="text-subtitle-1" :class="{ 'd-none': type !== 'powerPlant' }">{{ value }}</td>
-                                                        <td class="text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">{{ room.technologyName[keyName] }}</td>
-                                                        <td v-if="value==true" class="text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">Yes</td>
-                                                        <td v-else class="text-subtitle-1" :class="{ 'd-none': type !== 'technology' }">No</td>
                                                     </tr>
                                                 </tbody>
                                             </v-table>
                                         </v-col>
                                     </v-row>
+                                    <v-row align="center" justify="center" v-if="type == 'powerPlant'">
+                                        <v-col cols="auto">
+                                            <div class="text-subtitle-1 font-weight-bold">
+                                                Construction Cost: 
+                                                <span class="text-subtitle-1">€{{ room.ppInfo[keyName].price }} M</span>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
                                 </v-col>
                                 <v-col cols="7">
-                                    <span v-if="type=='technology'">
-                                        <v-row >
-                                            <v-col cols="12">
-                                                <div class="text-h5"> Pay: </div>
-                                                <v-text-field v-model="payment" :rules="ruleForPayment" label=""></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                        <v-row align="center" justify="center">
-                                            <v-col cols="auto">
-                                                <v-btn color="green" size="large" class="font-weight-bold" :disabled="!(payment <= this.user.resourceSet.remainingBalance)" @click="ask">Ask</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </span>
-                                    <span v-else>
+                                    <span v-if="type=='resource'">
                                         <v-row>
                                             <v-col cols="12">
                                                 <div class="text-h5"> Quantity(bt): </div>
@@ -75,6 +66,27 @@
                                         <v-row align="center" justify="center">
                                             <v-col cols="auto">
                                                 <v-btn color="green" size="large" class="font-weight-bold" :disabled="!(quantity > 0 && quantity <= value) || !(payment <= this.user.resourceSet.remainingBalance)" @click="ask">Ask</v-btn>
+                                            </v-col>
+                                        </v-row>
+                                    </span>
+                                    <span v-else>
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <div class="text-h5"> Quantity(bt): </div>
+                                                <v-text-field v-model="quantity" label=""></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <div class="text-h5"> Pay(M): </div>
+                                                <v-text-field v-model="payment" :rules="ruleForPayment" label=""></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" v-if="parseInt(quantity) >= 1">
+                                                <div class="text-h6 text-center font-weight-bold" v-if="calculateProfit > 0" style="color: #4CAF50;"> {{ partner.name }} will earn a profit of €{{ calculateProfit }} M</div>
+                                                <div class="text-h6 text-center font-weight-bold" v-else style="color: #F44336;"> {{ partner.name }} will lose €{{ calculateProfit * -1 }} M</div>
+                                            </v-col>
+                                        </v-row>
+                                        <v-row align="center" justify="center">
+                                            <v-col cols="auto">
+                                                <v-btn color="green" size="large" class="font-weight-bold" :disabled="!(payment <= this.user.resourceSet.remainingBalance)" @click="ask">Ask</v-btn>
                                             </v-col>
                                         </v-row>
                                     </span>
@@ -115,19 +127,24 @@ export default {
         askButton() {
             this.dialog = true
             this.message = ""
+            this.message_error_flag = false
         },
 
         ask() {
-            this.message = ""
-            this.socket.emit("ask", this.room.id, this.user.id, this.partnerId, this.type, this.keyName, parseInt(this.quantity), parseInt(this.payment))
+            if(this.calculateProfit * -1 > this.partner.resourceSet.remainingBalance) {
+                this.message_error_flag = true
+                this.message = this.partner.name + " doesn't have enough money"
+            }
+            else {
+                this.message = ""
+                this.message_error_flag = false
+                this.socket.emit("ask", this.room.id, this.user.id, this.partnerId, this.type, this.keyName, parseInt(this.quantity), parseInt(this.payment))
+            }
         }
     },
     mounted() {
         this.socket.on("askSuccess", (message) => {
             this.message = message
-            if(message == "Error") {
-                this.message_error_flag = true
-            }
         })
     },
     computed: {
@@ -141,10 +158,6 @@ export default {
             const partner = this.partner
             if(this.type == "resource") {
                 value = partner.resourceSet.resource[this.keyName]
-                return value
-            }
-            else if(this.type == "powerPlant") {
-                value = partner.resourceSet.remainingFuelingTime[this.keyName]
                 return value
             }
             else {
@@ -167,6 +180,12 @@ export default {
                 rules.push('Check the amount to pay');
             }
             return rules;
+        },
+
+        calculateProfit() {
+            const price = (this.room.ppInfo[this.keyName].price) * this.quantity
+            const profit = this.payment - price
+            return profit
         }
     },
     beforeUnmount() {

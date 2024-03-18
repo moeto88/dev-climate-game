@@ -58,12 +58,9 @@
                                     </span>
                                     <span v-if="request.type == 'powerPlant'">
                                         <div class="text-h6 mb-1">Ask: {{ request.keyName.charAt(0).toUpperCase() + request.keyName.slice(1) }} Power Plant</div>
-                                        <div class="text-h6 mb-1">Quantity: {{ request.quantity }}</div>
+                                        <div class="text-h6 mb-1">Quantity: {{ request.quantity }} (€{{ request.quantity * (this.room.ppInfo[request.keyName].price) }} M)</div>
                                     </span>
-                                    <span v-if="request.type == 'technology'">
-                                        <div class="text-h6 mb-1">Ask: {{ request.keyName.charAt(0).toUpperCase() + request.keyName.slice(1) }} Technology</div>
-                                    </span>
-                                    <div class="text-h6 mb-1">Pay: €{{ request.payment }}</div>
+                                    <div class="text-h6 mb-1">Pay: €{{ request.payment }} M</div>
                                     <span v-if="!(message1 == '')" style="color: #F44336;" class="text-body-1 mb-1">{{ message1 }}</span>
                                     <span v-if="!(message2 == '')" style="color: #F44336;" class="text-body-1 mb-1">{{ message2 }}</span>
                                 </div>
@@ -220,12 +217,12 @@
                 this.message1 = "You don't have enough resource"
             })
     
-            this.socket.on("noPowerPlant", () => {
-                this.message1 = "You don't have enough power plant"
-            })
-    
             this.socket.on("noMoney", (partner) => {
                 this.message2 = partner.name + " doesn't have enough money"
+            })
+
+            this.socket.on("noMoneyForBuilding", (partner) => {
+                this.message2 = "You don't have enough money to build a power plant for " + partner.name
             })
     
             this.socket.on("deleteTradeRequest", (tradeId) => {

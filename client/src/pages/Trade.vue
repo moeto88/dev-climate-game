@@ -54,12 +54,13 @@
                             <v-col cols="12" class="pt-0">
                                 <v-card>
                                     <v-tabs align-tabs="center" v-model="tab" color="deep-purple-accent-4">
-                                        <v-tab v-for="(partner, index) in otherUsers" :key="index" :value="index + 1">{{ partner.name }}</v-tab>
+                                        <v-tab class="font-weight-bold" v-for="(partner, index) in otherUsers" :key="index" :value="index + 1">{{ partner.name }}</v-tab>
                                     </v-tabs>
                                 
                                     <v-card-text>
                                         <v-window v-model="tab">
                                             <v-window-item v-for="(partner, index) in otherUsers" :key="index" :value="index + 1">
+                                                <div class="text-center font-weight-bold text-h6 mb-3">Balance: {{ partner.resourceSet.remainingBalance }}</div>
                                                 <v-table>
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
@@ -70,8 +71,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="(value, key) in partner.resourceSet.resource" :key="key">
-                                                            <td>{{ room.resourceName[key] }}</td>
-                                                            <td>{{ value }}</td>
+                                                            <td class="text-subtitle-1">{{ room.resourceName[key] }}</td>
+                                                            <td class="text-subtitle-1">{{ value }}</td>
                                                             <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'resource'"/></td>
                                                         </tr>
                                                     </tbody>
@@ -80,30 +81,16 @@
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
                                                             <th class="font-weight-bold text-subtitle-1">Power Plants</th>
-                                                            <th class="font-weight-bold text-subtitle-1">Inactive</th>
+                                                            <th class="font-weight-bold text-subtitle-1">Technology</th>
                                                             <th class="font-weight-bold text-subtitle-1">Ask</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(value, key) in partner.resourceSet.remainingFuelingTime" :key="key">
-                                                            <td>{{ room.technologyName[key] }}</td>
-                                                            <td>{{ value }}</td>
-                                                            <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'powerPlant'"/></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </v-table>
-                                                <v-table>
-                                                    <thead style="background-color: #BBDEFB;">
-                                                        <tr>
-                                                            <th class="font-weight-bold text-subtitle-1">Technology</th>
-                                                            <th class="font-weight-bold text-subtitle-1">Owned</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
                                                         <tr v-for="(value, key) in partner.resourceSet.technology" :key="key">
-                                                            <td>{{ room.technologyName[key] }}</td>
-                                                            <td v-if="value == true">Yes</td>
-                                                            <td v-else>No</td>
+                                                            <td class="text-subtitle-1">{{ room.technologyName[key] }}</td>
+                                                            <td class="text-subtitle-1" v-if="value == true">Yes</td>
+                                                            <td class="text-subtitle-1" v-else>No</td>
+                                                            <td><AskDialog :keyName="key" :partnerId="partner.id" :type="'powerPlant'"/></td>
                                                         </tr>
                                                     </tbody>
                                                 </v-table>

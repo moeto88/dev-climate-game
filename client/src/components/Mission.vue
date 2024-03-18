@@ -8,7 +8,7 @@
                         <v-tooltip activator="parent" location="end" max-width="800px" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
                                 <p>Energy Target is the amount of electricity you need to produce in this round.</p>
-                                <p>You will be get fined if you cannot meet this target.</p>
+                                <p>You will get fined if you fail to meet this target.</p>
                             </div>
                         </v-tooltip>
                     </div>
@@ -22,8 +22,8 @@
                         Your CO2 Emission This Round: {{ user.resourceSet.currentCO2Emission }} bt
                         <v-tooltip activator="parent" location="end" v-if="room.setting_RG=='green'">
                             <div style="color: white; font-size: 20px;">
-                                <p>This number represents your CO2 Emission this round.</p>
-                                <p>You'll have to pay a emission tax according to the tax rate.</p>
+                                <p>This number represents your CO2 Emissions this round.</p>
+                                <p>You'll have to pay an emission tax according to the tax rate.</p>
                                 <p>CO2 Emission Tax Rate: €{{ room.emission_fineList.fine_co2Emission }} M / 10 bt</p>
                             </div>
                         </v-tooltip>
