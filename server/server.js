@@ -486,7 +486,6 @@ io.on("connection", (socket) => {
             }
         }
         else if(request.type == "powerPlant") {
-            console.log("test")
             if(partner.resourceSet.remainingBalance >= request.payment) {
                 const price = (room.ppInfo[request.keyName].price) * request.quantity
                 const profit = request.payment - price
