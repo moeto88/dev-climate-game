@@ -60,7 +60,7 @@
                                     <v-card-text>
                                         <v-window v-model="tab">
                                             <v-window-item v-for="(partner, index) in otherUsers" :key="index" :value="index + 1">
-                                                <div class="text-center font-weight-bold text-h6 mb-3">Balance: {{ partner.resourceSet.remainingBalance }}</div>
+                                                <div class="text-center font-weight-bold text-h5 mb-3">Balance: €{{ partner.resourceSet.remainingBalance }} M</div>
                                                 <v-table>
                                                     <thead style="background-color: #BBDEFB;">
                                                         <tr>
