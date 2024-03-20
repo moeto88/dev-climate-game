@@ -249,6 +249,11 @@
                     </v-row>
                 </v-card>
             </v-card>
+            <v-dialog v-model="dialogConstructionSuccess" max-width="800">
+                <v-card class="pa-10">
+                    <div class="text-center text-h4 font-weight-bold" style="color: #4CAF50">Construction Success!</div>
+                </v-card>
+            </v-dialog>
         </v-dialog>
     </span>
 </template>
@@ -260,20 +265,24 @@ export default {
     data() {
         return {
             dialogBuildPP: false,
+            dialogConstructionSuccess: false,
             nuclearImage: require("../assets/nuclear-plant.png"),
         }
     },
     methods: {
         buildFossilPP() {
             this.socket.emit("buildFossilPP", this.room.id, this.user.id)
+            this.dialogConstructionSuccess = true
         },
 
         buildRenewablePP() {
             this.socket.emit("buildRenewablePP", this.room.id, this.user.id)
+            this.dialogConstructionSuccess = true
         },
 
         buildNuclearPP() {
             this.socket.emit("buildNuclearPP", this.room.id, this.user.id)
+            this.dialogConstructionSuccess = true
         },
     },
     computed: {
