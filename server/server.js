@@ -466,12 +466,12 @@ io.on("connection", (socket) => {
                 io.to(partner.id).emit("history", "Your trade request was accepted by " + user.name)
 
                 if(request.keyName == "fossilFuel") {
-                    io.to(user.id).emit("history", "You sold " + request.quantity + "bt of fossil fuels for €" + request.payment + " M.")
-                    io.to(partner.id).emit("history", "You bought " + request.quantity + "bt of fossil fuels for €" + request.payment + " M.")
+                    io.to(user.id).emit("history", "You sold " + request.quantity + " bt of fossil fuels for €" + request.payment + " M.")
+                    io.to(partner.id).emit("history", "You bought " + request.quantity + " bt of fossil fuels for €" + request.payment + " M.")
                 }
                 else {
-                    io.to(user.id).emit("history", "You sold " + request.quantity + "bt of uranium for €" + request.payment + " M.")
-                    io.to(partner.id).emit("history", "You bought " + request.quantity + "bt of uranium for €" + request.payment + " M.")
+                    io.to(user.id).emit("history", "You sold " + request.quantity + " bt of uranium for €" + request.payment + " M.")
+                    io.to(partner.id).emit("history", "You bought " + request.quantity + " bt of uranium for €" + request.payment + " M.")
                 }
             }
             else {
