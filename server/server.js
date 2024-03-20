@@ -463,15 +463,15 @@ io.on("connection", (socket) => {
                 io.to(user.id).emit("deleteTradeRequest", request.tradeId)
 
                 io.to(user.id).emit("history", "You accepted a trade request from " + partner.name)
-                io.to(partner.id).emit("history", "Your trade request was accenpted by " + user.name)
+                io.to(partner.id).emit("history", "Your trade request was accepted by " + user.name)
 
                 if(request.keyName == "fossilFuel") {
-                    io.to(user.id).emit("history", "You sold " + request.quantity + " of fossil fuels for " + request.payment + ".")
-                    io.to(partner.id).emit("history", "You bought " + request.quantity + " of fossil fuels for " + request.payment + ".")
+                    io.to(user.id).emit("history", "You sold " + request.quantity + "bt of fossil fuels for €" + request.payment + " M.")
+                    io.to(partner.id).emit("history", "You bought " + request.quantity + "bt of fossil fuels for €" + request.payment + " M.")
                 }
                 else {
-                    io.to(user.id).emit("history", "You sold " + request.quantity + " of uranium for " + request.payment + ".")
-                    io.to(partner.id).emit("history", "You bought " + request.quantity + " of uranium for " + request.payment + ".")
+                    io.to(user.id).emit("history", "You sold " + request.quantity + "bt of uranium for €" + request.payment + " M.")
+                    io.to(partner.id).emit("history", "You bought " + request.quantity + "bt of uranium for €" + request.payment + " M.")
                 }
             }
             else {
@@ -500,14 +500,17 @@ io.on("connection", (socket) => {
                     io.to(user.id).emit("updateUser", user)
                     io.to(partner.id).emit("updateUser", partner)
                     io.to(user.id).emit("deleteTradeRequest", request.tradeId)
+
+                    io.to(user.id).emit("history", "You accepted a trade request from " + partner.name)
+                    io.to(partner.id).emit("history", "Your trade request was accepted by " + user.name)
     
                     if(request.quantity > 1) {
-                        io.to(user.id).emit("history", "You sold " + request.quantity + " " + request.keyName + " power plants for " + request.payment + ".")
-                        io.to(partner.id).emit("history", "You bought " + request.quantity + " " + request.keyName + " power plants for " + request.payment + ".")
+                        io.to(user.id).emit("history", "You sold " + request.quantity + " " + request.keyName + " power plants for €" + request.payment + " M.")
+                        io.to(partner.id).emit("history", "You bought " + request.quantity + " " + request.keyName + " power plants for €" + request.payment + " M.")
                     }
                     else {
-                        io.to(user.id).emit("history", "You sold " + request.quantity + " " + request.keyName + " power plant for " + request.payment + ".")
-                        io.to(partner.id).emit("history", "You bought " + request.quantity + " " + request.keyName + " power plant for " + request.payment + ".")
+                        io.to(user.id).emit("history", "You sold " + request.quantity + " " + request.keyName + " power plant for €" + request.payment + " M.")
+                        io.to(partner.id).emit("history", "You bought " + request.quantity + " " + request.keyName + " power plant for €" + request.payment + " M.")
                     }
                 }
                 else {
