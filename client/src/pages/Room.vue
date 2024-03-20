@@ -767,8 +767,8 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 1200,
-                            uranium: 100,
+                            fossilFuel: 1300,
+                            uranium: 150,
                         },
                         powerPlant: {
                             fossil: 1,
@@ -790,8 +790,8 @@ export default {
                     fine: 20,
                     resourceSet: {
                         resource: {
-                            fossilFuel: 900,
-                            uranium: 300,
+                            fossilFuel: 800,
+                            uranium: 350,
                         },
                         powerPlant: {
                             fossil: 1,
