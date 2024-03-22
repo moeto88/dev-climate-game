@@ -710,14 +710,14 @@ export default {
             setting_co2Emission: true,
             fine_co2Emission: 10,
             setting_historicalEmission: true,
-            fine_high_historicalEmission: 40,
-            fine_middle_historicalEmission: 20,
+            fine_high_historicalEmission: 200,
+            fine_middle_historicalEmission: 100,
             setting_naturalDisaster: false,
             setting_RG: "",
             countryList: [
                 { 
                     name: 'Country A',  
-                    budget: 550,
+                    budget: 600,
                     fine: 200,
                     resourceSet: {
                         resource: {
@@ -734,13 +734,13 @@ export default {
                             renewable: true,
                             nuclear: false
                         },
-                        energyTarget: 120,
+                        energyTarget: 100,
                         historicalEmission: "high",
                     },
                 },
                 { 
                     name: 'Country B', 
-                    budget: 450, 
+                    budget: 500, 
                     fine: 150,
                     resourceSet: {
                         resource: {
