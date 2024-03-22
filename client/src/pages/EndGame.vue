@@ -226,7 +226,7 @@
 <script>
 import { mapState } from 'vuex';
 import SummaryCard from "../components/SummaryCard.vue"
-import SummaryMoneyCard from "../components/SummeryMoneyCard.vue"
+import SummaryMoneyCard from "../components/SummaryMoneyCard.vue"
 import ResourceCard from "../components/ResourceCard.vue";
 import PPCard from '../components/PPCard.vue';
 import TechnologyCard from '../components/TechnologyCard.vue';

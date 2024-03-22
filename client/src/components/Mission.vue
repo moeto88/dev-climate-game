@@ -11,6 +11,11 @@
                                 <p>You will get fined <span class="font-weight-bold">€{{ room.countryFineList[user.country] }} M</span> if you fail to meet this target.</p>
                             </div>
                         </v-tooltip>
+                        <v-tooltip activator="parent" location="end" max-width="800px" v-else>
+                            <div style="color: white; font-size: 20px;">
+                                <p>Energy Target is the amount of electricity you need to produce in this round.</p>
+                            </div>
+                        </v-tooltip>
                     </div>
                 </v-card-item>
             </v-card>
@@ -25,6 +30,11 @@
                                 <p>This number represents your CO2 Emissions this round.</p>
                                 <p>You'll have to pay an emission tax according to the tax rate.</p>
                                 <p class="font-weight-bold">CO2 Emission Tax Rate: €{{ room.emission_fineList.fine_co2Emission }} M / 10 bt</p>
+                            </div>
+                        </v-tooltip>
+                        <v-tooltip activator="parent" location="end" v-else>
+                            <div style="color: white; font-size: 20px;">
+                                <p>This number represents your CO2 Emissions this round.</p>
                             </div>
                         </v-tooltip>
                     </div>
