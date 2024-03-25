@@ -17,7 +17,7 @@
                                 </span>
                                 <span v-else>
                                     <v-icon icon="mdi-radiobox-marked" class="button-on-image-A" color="red-darken-1" size="30" @click="showInfo('A')"></v-icon>
-                                    <div class="text-on-image-A font-weight-bold">{{ usernameList.username_A }}</div>
+                                    <div class="text-on-image-A font-weight-bold text-h6">{{ usernameList.username_A }}</div>
                                 </span>
                                 
                                 <span v-if="usernameList.username_B == user.name">
@@ -26,7 +26,7 @@
                                 </span>
                                 <span v-else>
                                     <v-icon icon="mdi-radiobox-marked" class="button-on-image-B" color="red-darken-1" size="30" @click="showInfo('B')"></v-icon>
-                                    <div class="text-on-image-B font-weight-bold">{{ usernameList.username_B }}</div>
+                                    <div class="text-on-image-B font-weight-bold text-h6">{{ usernameList.username_B }}</div>
                                 </span>
                                 
                                 <span v-if="usernameList.username_C == user.name">
@@ -35,7 +35,7 @@
                                 </span>
                                 <span v-else>
                                     <v-icon icon="mdi-radiobox-marked" class="button-on-image-C" color="red-darken-1" size="30" @click="showInfo('C')"></v-icon>
-                                    <div class="text-on-image-C font-weight-bold">{{ usernameList.username_C }}</div>
+                                    <div class="text-on-image-C font-weight-bold text-h6">{{ usernameList.username_C }}</div>
                                 </span>
                                 
                                 <span v-if="usernameList.username_D == user.name">
@@ -44,8 +44,7 @@
                                 </span>
                                 <span v-else>
                                     <v-icon icon="mdi-radiobox-marked" class="button-on-image-D" color="red-darken-1" size="30" @click="showInfo('D')"></v-icon>
-                                    <div class="text-on-image-D font-weight-bold">{{ usernameList.username_D }}</div>
-
+                                    <div class="text-on-image-D font-weight-bold text-h6">{{ usernameList.username_D }}</div>
                                 </span>
                             </v-card>
                         </v-col>

@@ -131,9 +131,16 @@ export default {
         },
 
         ask() {
-            if(this.calculateProfit * -1 > this.partner.resourceSet.remainingBalance) {
-                this.message_error_flag = true
-                this.message = this.partner.name + " doesn't have enough money"
+            if(this.type == 'powerPlant') {
+                if(this.calculateProfit * -1 > this.partner.resourceSet.remainingBalance) {
+                    this.message_error_flag = true
+                    this.message = this.partner.name + " doesn't have enough money"
+                }
+                else {
+                    this.message = ""
+                    this.message_error_flag = false
+                    this.socket.emit("ask", this.room.id, this.user.id, this.partnerId, this.type, this.keyName, parseInt(this.quantity), parseInt(this.payment))
+                }
             }
             else {
                 this.message = ""

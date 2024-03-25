@@ -17,8 +17,13 @@
                     </v-row>
                     <v-row justify="center" align="center">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h5 font-weight-bold" v-if="room.users[0].num_meetingTarget <= 1">Energy Target: {{ room.users[0].num_meetingTarget }} time achieved</span>
-                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[0].num_meetingTarget }} times achieved</span>
+                            <span class="text-h5 font-weight-bold">Ending Balance: €{{ room.users[0].resourceSet.remainingBalance }} M</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[0].num_meetingTarget <= 1">Energy Target: Achieved {{ room.users[0].num_meetingTarget }} time</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: Achieved {{ room.users[0].num_meetingTarget }} times</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -69,8 +74,13 @@
                     </v-row>
                     <v-row justify="center" align="center">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h5 font-weight-bold" v-if="room.users[1].num_meetingTarget <= 1">Energy Target: {{ room.users[1].num_meetingTarget }} time achieved</span>
-                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[1].num_meetingTarget }} times achieved</span>
+                            <span class="text-h5 font-weight-bold">Ending Balance: €{{ room.users[1].resourceSet.remainingBalance }} M</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[1].num_meetingTarget <= 1">Energy Target: Achieved {{ room.users[1].num_meetingTarget }} time</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: Achieved {{ room.users[1].num_meetingTarget }} times</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -123,8 +133,13 @@
                     </v-row>
                     <v-row justify="center" align="center">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h5 font-weight-bold" v-if="room.users[2].num_meetingTarget <= 1">Energy Target: {{ room.users[2].num_meetingTarget }} time achieved</span>
-                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[2].num_meetingTarget }} times achieved</span>
+                            <span class="text-h5 font-weight-bold">Ending Balance: €{{ room.users[2].resourceSet.remainingBalance }} M</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[2].num_meetingTarget <= 1">Energy Target: Achieved {{ room.users[2].num_meetingTarget }} time</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: Achieved {{ room.users[2].num_meetingTarget }} times</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
@@ -175,8 +190,13 @@
                     </v-row>
                     <v-row justify="center" align="center">
                         <v-col cols="auto" class="pt-0">
-                            <span class="text-h5 font-weight-bold" v-if="room.users[3].num_meetingTarget <= 1">Energy Target: {{ room.users[3].num_meetingTarget }} time achieved</span>
-                            <span class="text-h5 font-weight-bold" v-else>Energy Target: {{ room.users[3].num_meetingTarget }} times achieved</span>
+                            <span class="text-h5 font-weight-bold">Ending Balance: €{{ room.users[3].resourceSet.remainingBalance }} M</span>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                        <v-col cols="auto" class="pt-0">
+                            <span class="text-h5 font-weight-bold" v-if="room.users[3].num_meetingTarget <= 1">Energy Target: Achieved {{ room.users[3].num_meetingTarget }} time</span>
+                            <span class="text-h5 font-weight-bold" v-else>Energy Target: Achieved {{ room.users[3].num_meetingTarget }} times</span>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">

@@ -58,9 +58,11 @@
                                     </span>
                                     <span v-if="request.type == 'powerPlant'">
                                         <div class="text-h6 mb-1">Ask: {{ request.keyName.charAt(0).toUpperCase() + request.keyName.slice(1) }} Power Plant</div>
-                                        <div class="text-h6 mb-1">Quantity: {{ request.quantity }} (€{{ request.quantity * (this.room.ppInfo[request.keyName].price) }} M)</div>
+                                        <div class="text-h6 mb-1">Quantity: {{ request.quantity }} (It will cost you €{{ request.quantity * (this.room.ppInfo[request.keyName].price) }} M)</div>
                                     </span>
                                     <div class="text-h6 mb-1">Pay: €{{ request.payment }} M</div>
+                                    <div v-if="request.type == 'powerPlant' && request.payment - (request.quantity * (this.room.ppInfo[request.keyName].price)) > 0" class="text-h6 mb-1 font-weight-bold" style="color: #4CAF50;">You'll earn €{{ request.payment - (request.quantity * (this.room.ppInfo[request.keyName].price)) }} M</div>
+                                    <div v-if="request.type == 'powerPlant' && request.payment - (request.quantity * (this.room.ppInfo[request.keyName].price)) < 0" class="text-h6 mb-1 font-weight-bold" style="color: #F44336;">You'll lose €{{ -1 * (request.payment - (request.quantity * (this.room.ppInfo[request.keyName].price))) }} M</div>
                                     <span v-if="!(message1 == '')" style="color: #F44336;" class="text-body-1 mb-1">{{ message1 }}</span>
                                     <span v-if="!(message2 == '')" style="color: #F44336;" class="text-body-1 mb-1">{{ message2 }}</span>
                                 </div>
@@ -240,7 +242,7 @@
                 this.dialog_nextRoundInfo = true
             })
     
-            this.socket.on("endGame_notHost", () => {
+            this.socket.on("move_endGame", () => {
                 router.push("/end-game")
             })
     
@@ -278,7 +280,6 @@
     
             endGame() {
                 this.socket.emit("endGame", this.room.id)
-                router.push("/end-game")
             }
         },
         watch: {
