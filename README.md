@@ -1,4 +1,4 @@
-# server
+# Server
 
 ## Project setup
 ```
@@ -11,7 +11,7 @@ node server.js
 ```
 
 
-# client
+# Client
 
 ## Project setup
 ```
